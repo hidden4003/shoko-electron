@@ -1,0 +1,78 @@
+body {
+    overflow: hidden;
+}
+
+.page-series {
+    height: 100%;
+    position: relative;
+}
+
+.page-series .banner {
+    height: 300px;
+    overflow: hidden;
+    z-index: -1;
+    box-shadow: rgba(0,0,0,.3) 0 2px 2px;
+}
+
+.page-series .banner img {
+    filter: brightness(50%);
+    min-width: 100%;
+}
+
+.page-series .series-title {
+    position: relative;
+    top: -80px;
+    left: 230px;
+    font-family: Roboto;
+    font-size: 14px;
+    color: white;
+    text-shadow: -2px -2px 5px #000;
+}
+
+.page-series .series-title .title {
+    font-size: 30px;
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+.page-series .series-info {
+    position: relative;
+    top: -80px;
+    left: 210px;
+    font-family: Roboto;
+    font-size: 14px;
+    color: white;
+    text-shadow: -2px -2px 5px #000;
+}
+
+.page-series .series-info img {
+    padding: 0 20px;
+}
+
+.page-series .poster {
+    overflow: hidden;
+    position: fixed;
+    left: 80px;
+    top: 200px;
+}
+.page-series .poster img {
+    height: 300px;
+    width: 200px;
+}
+
+.page-series .series-content {
+    margin-left: 17rem;
+    margin-right: 1rem;
+    top: -40px;
+    position: relative;
+}
+
+.page-series .series-content .breadcrumb {
+    margin: 0 1rem;
+    padding: .75rem 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.page-series .series-content .nav-link {
+    text-transform: uppercase;
+}

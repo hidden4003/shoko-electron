@@ -1,0 +1,14 @@
+{
+  "name": "shoko-electron",
+  "author": "Shoko",
+  "productName": "shoko-electron",
+  "version": "0.1.2",
+  "description": "Shoko Electron",
+  "main": "./main.prod.js",
+  "scripts": {
+    "electron-rebuild": "node -r babel-register ../internals/scripts/ElectronRebuild.js",
+    "postinstall": "npm run electron-rebuild"
+  },
+  "license": "MIT",
+  "dependencies": {}
+}
