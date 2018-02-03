@@ -6,6 +6,7 @@ import { forEach } from 'lodash';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 import SeriesImage from './SeriesImage';
+import AnidbDescription from './AnidbDescription';
 
 class Group extends PureComponent {
   static propTypes = {
@@ -47,7 +48,7 @@ class Group extends PureComponent {
             </div>
             <div className="tooltip-title">{group.name}</div>
             <div className="tooltip-description">
-              {group.summary}
+              <AnidbDescription text={group.summary} />
             </div>
             <div>{tags}</div>
           </div>
