@@ -98,6 +98,9 @@ body {
     height: 14px;
     margin: 2px 4px 0 10px;
 }
+.group .group-tooltip .anidb-link .icon {
+    margin: 0 2px 0 0;
+}
 .group .group-tooltip span:first-child .icon {
     margin-left: 0;
 }

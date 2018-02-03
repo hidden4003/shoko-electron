@@ -11,6 +11,7 @@ import calendarIcon from '../icons/16-Calender-Active.png';
 import collectionIcon from '../icons/16-Collection-Active.png';
 import starIcon from '../icons/16-My-Lists-Active.png';
 import SeriesImage from './SeriesImage';
+import AnidbDescription from './AnidbDescription';
 
 class Series extends Component {
   componentDidMount() {
@@ -71,7 +72,7 @@ class Series extends Component {
                   <h3 className="panel-title">Series synopsis</h3>
                 </div>
                 <div className="panel-body">
-                  {series.summary}
+                  {series.summary?<AnidbDescription text={series.summary} />:null}
                 </div>
               </div>
             </div>
