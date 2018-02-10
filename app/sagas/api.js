@@ -52,11 +52,11 @@ function jsonApiResponse(apiKey, apiAction, apiParams, type) {
 }
 
 function getGroups(apiKey) {
-  return jsonApiResponse(apiKey, '/group?nocast=1&tagfilter=63', '');
+  return jsonApiResponse(apiKey, '/serie?nocast=1&tagfilter=63', '');
 }
 
 function getSeries(apiKey, id) {
-  return jsonApiResponse(apiKey, `/serie?allpics=1&id=${id}`, '');
+  return jsonApiResponse(apiKey, `/serie?allpics=1&tagfilter=63&level=1&id=${id}`, '');
 }
 
 function postLogin(apiKey, data) {

@@ -2,16 +2,18 @@
 import React, { Component } from 'react';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { connect } from 'react-redux';
+import { forEach } from 'lodash';
+import { Route } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import './Series.global.css';
 import Events from '../events';
-import SiteMenuBar from './SiteMenuBar';
-import SiteNavbar from './SiteNavbar';
 import calendarIcon from '../icons/16-Calender-Active.png';
 import collectionIcon from '../icons/16-Collection-Active.png';
 import starIcon from '../icons/16-My-Lists-Active.png';
 import SeriesImage from './SeriesImage';
-import AnidbDescription from './AnidbDescription';
+import SeriesInfo from './series/SeriesInfo';
+import SeriesEpisodes from './series/SeriesEpisodes';
 
 class Series extends Component {
   componentDidMount() {
@@ -20,64 +22,86 @@ class Series extends Component {
   }
 
   render() {
-    const { series } = this.props;
+    const { series, match } = this.props;
+    const tags = [];
+    forEach(series.tags, function(tag) {
+      tags.push(<div className="badge badge-info">{tag}</div>);
+    });
 
     return (
-      <div style={{ height: '100vh', position: 'relative' }}>
-        <SiteNavbar />
-        <SiteMenuBar />
-        <div className="page page-series">
-          <PerfectScrollbar>
-            <div className="banner">
-              <SeriesImage banner first art={series.art} />
+      <div className="page page-series">
+        <PerfectScrollbar>
+          <div className="banner">
+            <SeriesImage banner first art={series.art} />
+          </div>
+          <div className="series-title">
+            <span className="title">{series.name}</span>
+            <span className="type">{series.type}</span>
+          </div>
+          <div className="series-info">
+            <img src={calendarIcon} alt="" />
+            <span>{series.air}</span>
+            <img src={collectionIcon} alt="" />
+            <span>{series.total_sizes && series.total_sizes.Episodes} Episodes {series.total_sizes && series.total_sizes.Specials && `(${series.total_sizes.Specials} Specials)`}</span>
+            <img src={starIcon} alt="" />
+            <span>{series.rating} ({series.votes} votes)</span>
+          </div>
+          <div className="poster">
+            <SeriesImage poster first art={series.art} />
+          </div>
+          <div className="series-stats">
+            <div className="toolbar">
+              <i className="icon icon-edit-blue" />
+              <i className="icon icon-tag-blue" />
+              <i className="icon icon-add-list" />
+              <i className="icon icon-add-playlist" />
+              <i className="icon icon-pinned" />
             </div>
-            <div className="series-title">
-              <span className="title">{series.name}</span>
-              <span className="type">{series.type}</span>
-            </div>
-            <div className="series-info">
-              <img src={calendarIcon} alt="" />
-              {/*<span>March 30 2014 - June 22 2017</span>*/}
-              <span>{series.air}</span>
-              <img src={collectionIcon} alt="" />
-              {/*<span>54 Episodes (2 Specials)</span>*/}
-              <span>{series.total_sizes && series.total_sizes.Episodes} Episodes {series.total_sizes && series.total_sizes.Specials && `(${series.total_sizes.Specials} Specials)`}</span>
-              <img src={starIcon} alt="" />
-              {/*<span>8.88 (12,343 votes)</span>*/}
-              <span>{series.rating} ({series.votes} votes)</span>
-            </div>
-            <div className="poster">
-              <SeriesImage poster first art={series.art} />
-            </div>
-            <div className="series-content">
-              <div className="panel">
-                <ol className="breadcrumb breadcrumb-arrow">
-                  <li className="breadcrumb-item">Collection</li>
-                  <li className="breadcrumb-item">Very Long Series</li>
-                  <li className="breadcrumb-item active">Fairy Tail</li>
-                  <li className="breadcrumb-item active">Fairy Tail (2014)</li>
-                </ol>
-                <ul className="nav nav-tabs nav-tabs-line">
-                  <li className="nav-item"><a className="nav-link active">Series info</a></li>
-                  <li className="nav-item"><a className="nav-link">Episodes</a></li>
-                  <li className="nav-item"><a className="nav-link">Characters</a></li>
-                  <li className="nav-item"><a className="nav-link">Images</a></li>
-                  <li className="nav-item"><a className="nav-link">Related &amp; Similar</a></li>
-                  <li className="nav-item"><a className="nav-link">Reviews</a></li>
-                  <li className="nav-item"><a className="nav-link">Files</a></li>
-                </ul>
-              </div>
-              <div className="panel panel-dark">
-                <div className="panel-heading">
-                  <h3 className="panel-title">Series synopsis</h3>
-                </div>
-                <div className="panel-body">
-                  {series.summary?<AnidbDescription text={series.summary} />:null}
-                </div>
-              </div>
-            </div>
-          </PerfectScrollbar>
-        </div>
+            <p className="section">
+              <i className="icon icon-watch" />watch count
+            </p>
+            <p>00 / 000 Episodes</p>
+            <p>00 / 000 Specials</p>
+            <p className="section">
+              <i className="icon icon-file" />file count
+            </p>
+            <p>00 Missing (Collecting)</p>
+            <p>00 Missing (Total)</p>
+            <p className="section">
+              <i className="icon icon-rating" />user rating
+            </p>
+            <p>N/A (No rating)</p>
+            <p className="section">
+              <i className="icon icon-user" />user activity
+            </p>
+            <p>Last watched: ...</p>
+            <p>Episode: </p>
+            <p className="section">
+              <i className="icon icon-link" />links
+            </p>
+          </div>
+          <div className="series-nav">
+            <ol className="breadcrumb breadcrumb-series">
+              <li className="breadcrumb-item">Collection</li>
+              <li className="breadcrumb-item">Very Long Series</li>
+              <li className="breadcrumb-item active">Fairy Tail</li>
+              <li className="breadcrumb-item active">Fairy Tail (2014)</li>
+            </ol>
+            <ul className="nav nav-tabs nav-tabs-line">
+              <li className="nav-item"><a className="nav-link active">Series info</a></li>
+              <li className="nav-item"><Link className="nav-link" to={`${match.url}/episodes`}>Episodes</Link></li>
+              <li className="nav-item"><a className="nav-link">Characters</a></li>
+              <li className="nav-item"><a className="nav-link">Images</a></li>
+              <li className="nav-item"><a className="nav-link">Related &amp; Similar</a></li>
+              <li className="nav-item"><a className="nav-link">Reviews</a></li>
+              <li className="nav-item"><a className="nav-link">Files</a></li>
+            </ul>
+          </div>
+          <div className="series-content">
+            <Route path={match.url} exact component={SeriesInfo} />
+            <Route path={`${match.url}/episodes`} exact component={SeriesEpisodes} />
+          </div>
+        </PerfectScrollbar>
       </div>
     );
   }

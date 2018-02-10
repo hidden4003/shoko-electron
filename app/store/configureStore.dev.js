@@ -4,8 +4,10 @@ import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import { createLogger } from 'redux-logger';
+import throttle from 'lodash/throttle';
 import rootReducer from '../reducers';
 import rootSaga from '../sagas';
+import { saveState, loadState } from './localStorage';
 
 const history = createHashHistory();
 const sagaMiddleware = createSagaMiddleware();
@@ -54,8 +56,16 @@ const configureStore = (initialState?: counterStateType) => {
   enhancers.push(applyMiddleware(...middleware));
   const enhancer = composeEnhancers(...enhancers);
 
+  const state = Object.assign({}, initialState, loadState());
   // Create Store
-  const store = createStore(rootReducer, initialState, enhancer);
+  const store = createStore(rootReducer, state, enhancer);
+
+  // Save store to local storage
+  store.subscribe(throttle(() => {
+    saveState({
+      api: store.getState().api,
+    });
+  }, 1000));
 
   // Run saga
   sagaMiddleware.run(rootSaga);

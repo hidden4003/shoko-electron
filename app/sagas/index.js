@@ -54,7 +54,22 @@ function* getSeries(action) {
 }
 
 function* Exit() {
-  yield window.close();
+  window.close();
+  yield null;
+}
+
+function* windowMaximize() {
+  const { remote } = require('electron');
+  const window = remote.BrowserWindow.getFocusedWindow();
+
+  if (window.isMaximized()) { window.unmaximize(); } else { window.maximize(); }
+  yield null;
+}
+
+function* windowMinimize() {
+  const { remote } = require('electron');
+  remote.BrowserWindow.getFocusedWindow().minimize();
+  yield null;
 }
 
 export default function* rootSaga() {
@@ -64,5 +79,7 @@ export default function* rootSaga() {
     takeEvery(Events.LOGIN, Login),
     takeEvery(Events.API_SET_VALUE, apiSetValue),
     takeEvery(Events.EXIT, Exit),
+    takeEvery(Events.WINDOW_MAXIMIZE, windowMaximize),
+    takeEvery(Events.WINDOW_MINIMIZE, windowMinimize),
   ];
 }

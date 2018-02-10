@@ -1,6 +1,9 @@
 // @flow
 import React, { Component } from 'react';
 import Series from '../components/Series';
+import SiteMenuBar from '../components/SiteMenuBar';
+import SiteNavbar from '../components/SiteNavbar';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 export default class HomePage extends Component {
   componentDidMount() {
@@ -11,7 +14,13 @@ export default class HomePage extends Component {
 
   render() {
     return (
-      <Series {...this.props} />
+      <div style={{ height: '100vh', position: 'relative' }}>
+        <SiteNavbar />
+        <SiteMenuBar />
+        <ErrorBoundary>
+          <Series {...this.props} />
+        </ErrorBoundary>
+      </div>
     );
   }
 }

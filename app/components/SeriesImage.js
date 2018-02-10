@@ -9,7 +9,7 @@ class SeriesImage extends PureComponent {
     banner: PropTypes.bool,
     poster: PropTypes.bool,
     first: PropTypes.bool,
-    art: PropTypes.object.isRequired,
+    art: PropTypes.object,
   };
 
   static defaultProps = {
@@ -17,6 +17,7 @@ class SeriesImage extends PureComponent {
     banner: false,
     poster: false,
     first: false,
+    art: {}
   };
 
   render() {
