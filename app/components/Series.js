@@ -14,11 +14,24 @@ import starIcon from '../icons/16-My-Lists-Active.png';
 import SeriesImage from './SeriesImage';
 import SeriesInfo from './series/SeriesInfo';
 import SeriesEpisodes from './series/SeriesEpisodes';
+import RoutedTabpanel from './RoutedTabpanel';
 
 class Series extends Component {
   componentDidMount() {
     const { match, getSeries } = this.props;
     getSeries(match.params.id);
+  }
+
+  static seriesTabpanel() {
+    return [
+      { title: 'Series info', route: '' },
+      { title: 'Episodes info', route: '/episodes' },
+      { title: 'Characters', route: '/characters' },
+      { title: 'Images', route: '/images' },
+      { title: 'Related & Similar', route: '/related' },
+      { title: 'Reviews', route: '/reviews' },
+      { title: 'Files', route: '/files' },
+    ];
   }
 
   render() {
@@ -87,15 +100,7 @@ class Series extends Component {
               <li className="breadcrumb-item active">Fairy Tail</li>
               <li className="breadcrumb-item active">Fairy Tail (2014)</li>
             </ol>
-            <ul className="nav nav-tabs nav-tabs-line">
-              <li className="nav-item"><a className="nav-link active">Series info</a></li>
-              <li className="nav-item"><Link className="nav-link" to={`${match.url}/episodes`}>Episodes</Link></li>
-              <li className="nav-item"><a className="nav-link">Characters</a></li>
-              <li className="nav-item"><a className="nav-link">Images</a></li>
-              <li className="nav-item"><a className="nav-link">Related &amp; Similar</a></li>
-              <li className="nav-item"><a className="nav-link">Reviews</a></li>
-              <li className="nav-item"><a className="nav-link">Files</a></li>
-            </ul>
+            <RoutedTabpanel route={match.url} config={Series.seriesTabpanel()} />
           </div>
           <div className="series-content">
             <Route path={match.url} exact component={SeriesInfo} />

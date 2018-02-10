@@ -1,15 +1,32 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { forEach } from 'lodash';
-
 import '../Series.global.css';
-import SeriesImage from "../SeriesImage";
+import SeriesImage from '../SeriesImage';
+import FilterDropdown from './FilterDropdown';
 
-class Series extends Component {
+
+class SeriesEpisodes extends Component {
+  constructor(props) {
+    super(props);
+
+    this.typeChange = this.typeChange.bind(this);
+    this.state = {
+      type: 'Episode',
+    };
+  }
+
+  typeChange(option) {
+    this.setState({ type: option.key });
+  }
+
   render() {
     const { series } = this.props;
+    const { type } = this.state;
+
     const items = [];
     forEach(series.eps, (episode) => {
+      if (episode.eptype !== type) { return; }
       items.push(
         <div className="episode">
           <SeriesImage poster first art={episode.art} />
@@ -27,6 +44,11 @@ class Series extends Component {
       );
     });
 
+    const typeFilters = [
+      { key: 'Episode', value: 'Episodes' },
+      { key: 'Credits', value: 'Credits' },
+    ];
+
     return (
       <div className="series-episodes">
         <div className="panel panel-dark">
@@ -34,6 +56,9 @@ class Series extends Component {
             <h3 className="panel-title">Episodes</h3>
           </div>
           <div className="panel-body">
+            <div className="filters-toolbar">
+              <FilterDropdown options={typeFilters} onSelect={this.typeChange} />
+            </div>
             {items}
           </div>
         </div>
@@ -52,4 +77,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(Series);
+export default connect(mapStateToProps)(SeriesEpisodes);

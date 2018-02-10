@@ -170,10 +170,16 @@ body {
     border-bottom: 1px solid #e1e3e6;
     overflow: hidden;
 }
+
 .page-series .series-episodes .episode .title {
     font-size: 16px;
     font-weight: bold;
 }
+
+.page-series .series-episodes .filters-toolbar {
+    padding: 10px 0;
+}
+
 
 .icon.icon-edit-blue {
     background: url(../icons/16-Edit-Blue.png);
