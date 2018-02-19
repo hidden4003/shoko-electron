@@ -30,7 +30,7 @@ class Group extends PureComponent {
     });
 
     return (
-      <div className="group" data-tip data-for={groupId} onClick={() => { openSeries(group.id); }}>
+      <div className="group" data-tip data-for={groupId} data-delay-show="500" onClick={() => { openSeries(group.id); }}>
         <LazyLoad once overflow height={250}><SeriesImage poster first art={group.art} /></LazyLoad>
         {unwatched > 0 && <div className="unwatched">{unwatched}</div>}
         <div className="title">

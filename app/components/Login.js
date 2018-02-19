@@ -14,7 +14,7 @@ class Login extends Component {
 
   render() {
     const { setValue, login, api } = this.props;
-    const { user, password } = api;
+    const { user, password, host } = api;
 
     return (
       <div className="page-content">
@@ -44,6 +44,16 @@ class Login extends Component {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => { setValue('password', e.target.value); }}
+              />
+            </div>
+            <div className="form-group">
+              <label className="sr-only" htmlFor="inputEmail">Server</label>
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Server address"
+                value={host}
+                onChange={(e) => { setValue('host', e.target.value); }}
               />
             </div>
             <button type="button" className="btn btn-primary btn-block" onClick={login}>Sign in</button>

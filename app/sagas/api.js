@@ -1,7 +1,5 @@
-const host = 'http://127.0.0.1:8111';
-
-function apiCallPost(apiAction, apiParams, apiKey) {
-  return window.fetch(`${host}/api${apiAction}`, {
+function apiCallPost(apiAction, apiParams, apiKey, apiHost) {
+  return window.fetch(`${apiHost}/api${apiAction}`, {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -12,8 +10,8 @@ function apiCallPost(apiAction, apiParams, apiKey) {
   });
 }
 
-function apiCallGet(apiAction, apiParams, apiKey) {
-  return window.fetch(`${host}/api${apiAction}${apiParams}`, {
+function apiCallGet(apiAction, apiParams, apiKey, apiHost) {
+  return window.fetch(`${apiHost}/api${apiAction}${apiParams}`, {
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
@@ -22,8 +20,8 @@ function apiCallGet(apiAction, apiParams, apiKey) {
   });
 }
 
-function apiCall(apiKey, apiAction, apiParams, type = 'GET') {
-  const fetch = type === 'POST' ? apiCallPost(apiAction, apiParams, apiKey) : apiCallGet(apiAction, apiParams, apiKey);
+function apiCall(apiState, apiAction, apiParams, type = 'GET') {
+  const fetch = type === 'POST' ? apiCallPost(apiAction, apiParams, apiState.key, apiState.host) : apiCallGet(apiAction, apiParams, apiState.key, apiState.host);
 
   return fetch.then((response) => {
     if (response.status !== 200) {
@@ -33,13 +31,13 @@ function apiCall(apiKey, apiAction, apiParams, type = 'GET') {
   });
 }
 
-function jsonApiCall(apiKey, apiAction, apiParams, type) {
-  return apiCall(apiKey, apiAction, apiParams, type)
+function jsonApiCall(apiState, apiAction, apiParams, type) {
+  return apiCall(apiState, apiAction, apiParams, type)
     .then(response => response.json());
 }
 
-function jsonApiResponse(apiKey, apiAction, apiParams, type) {
-  return jsonApiCall(apiKey, apiAction, apiParams, type)
+function jsonApiResponse(apiState, apiAction, apiParams, type) {
+  return jsonApiCall(apiState, apiAction, apiParams, type)
     .then((json) => {
       if (json.code) {
         if (json.code !== 200) {
@@ -51,16 +49,16 @@ function jsonApiResponse(apiKey, apiAction, apiParams, type) {
     .catch(reason => ({ error: true, message: typeof reason === 'string' ? reason : reason.message }));
 }
 
-function getGroups(apiKey) {
-  return jsonApiResponse(apiKey, '/serie?nocast=1&tagfilter=63', '');
+function getGroups(apiState) {
+  return jsonApiResponse(apiState, '/serie?nocast=1&tagfilter=63', '');
 }
 
-function getSeries(apiKey, id) {
-  return jsonApiResponse(apiKey, `/serie?allpics=1&tagfilter=63&level=1&id=${id}`, '');
+function getSeries(apiState, id) {
+  return jsonApiResponse(apiState, `/serie?allpics=1&tagfilter=63&level=1&id=${id}`, '');
 }
 
-function postLogin(apiKey, data) {
-  return jsonApiResponse(apiKey, '/auth', data, 'POST');
+function postLogin(host, data) {
+  return jsonApiResponse({ key: '', host }, '/auth', data, 'POST');
 }
 
 

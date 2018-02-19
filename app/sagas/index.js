@@ -7,15 +7,14 @@ import { series } from '../actions/series';
 import { api } from '../actions/api';
 
 function* Login() {
-  const data = yield select(state => {
-    return ({
-      user: state.api.user,
-      pass: state.api.password,
-      device: 'shoko-v2',
-    });
-  });
+  const apiState = yield select(state => state.api);
+  const data = {
+    user: apiState.user,
+    pass: apiState.password,
+    device: 'shoko-v2',
+  };
 
-  const resultJson = yield call(Api.postLogin, '', data);
+  const resultJson = yield call(Api.postLogin, apiState.host, data);
   if (resultJson.error) {
     alert(resultJson.message);
     return;
@@ -32,9 +31,9 @@ function* apiSetValue(action) {
 }
 
 function* getGroups() {
-  const apiKey = yield select(state => state.api.key);
+  const apiState = yield select(state => state.api);
 
-  const resultJson = yield call(Api.getGroups, apiKey);
+  const resultJson = yield call(Api.getGroups, apiState);
   if (resultJson.error) {
     alert(resultJson.message);
   } else {
@@ -43,9 +42,9 @@ function* getGroups() {
 }
 
 function* getSeries(action) {
-  const apiKey = yield select(state => state.api.key);
+  const apiState = yield select(state => state.api);
 
-  const resultJson = yield call(Api.getSeries, apiKey, action.payload);
+  const resultJson = yield call(Api.getSeries, apiState, action.payload);
   if (resultJson.error) {
     alert(resultJson.message);
   } else {
