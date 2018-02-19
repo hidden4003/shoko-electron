@@ -2,7 +2,7 @@
   "name": "shoko-electron",
   "author": "Shoko",
   "productName": "shoko-electron",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "description": "Shoko Electron",
   "main": "./main.prod.js",
   "scripts": {

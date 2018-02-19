@@ -10,8 +10,6 @@ export default class HomePage extends Component {
   }
 
   render() {
-    return (
-      <Home />
-    );
+    return <Home />;
   }
 }
