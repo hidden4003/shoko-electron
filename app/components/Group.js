@@ -25,8 +25,8 @@ class Group extends PureComponent {
 
     const tags = [];
     forEach(group.tags, (tag) => {
-      if (tags.length > 8) { return false; }
-      tags.push(<span className="badge badge-pill">{tag.tag}</span>);
+      //if (tags.length > 8) { return false; }
+      tags.push(<span className="badge badge-pill">{tag}</span>);
     });
 
     return (
@@ -50,7 +50,7 @@ class Group extends PureComponent {
             <div className="tooltip-description">
               <AnidbDescription text={group.summary} />
             </div>
-            <div>{tags}</div>
+            <div className="tooltip-tags">{tags}</div>
           </div>
         </Tooltip>
       </div>

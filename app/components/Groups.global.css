@@ -72,7 +72,6 @@ body {
 .group .group-tooltip {
     width: 400px;
     padding: 5px;
-
 }
 
 .group .group-tooltip img {
@@ -80,8 +79,14 @@ body {
 }
 
 .group .group-tooltip .tooltip-description {
-    max-height: 6em;
+    max-height: 12em;
     overflow: hidden;
+}
+
+.group .group-tooltip .tooltip-tags {
+    max-height: 4em;
+    overflow: hidden;
+    padding-top: 5px;
 }
 
 .group .group-tooltip .tooltip-title {

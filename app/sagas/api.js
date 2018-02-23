@@ -50,11 +50,14 @@ function jsonApiResponse(apiState, apiAction, apiParams, type) {
 }
 
 function getGroups(apiState) {
-  return jsonApiResponse(apiState, '/serie?nocast=1&tagfilter=63', '');
+  return jsonApiResponse(apiState, '/group?nocast=1&tagfilter=63&level=1', '');
 }
 
 function getSeries(apiState, id) {
-  return jsonApiResponse(apiState, `/serie?allpics=1&tagfilter=63&level=1&id=${id}`, '');
+  if (id) {
+    return jsonApiResponse(apiState, `/serie?allpics=1&tagfilter=63&level=1&id=${id}`, '');
+  }
+  return jsonApiResponse(apiState, '/serie?nocast=1&tagfilter=63', '');
 }
 
 function postLogin(host, data) {
