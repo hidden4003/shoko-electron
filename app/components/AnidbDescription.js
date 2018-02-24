@@ -23,7 +23,7 @@ class AnidbDescription extends PureComponent {
         pos = link.index;
         lines.push(text.substring(prevPos, pos));
         prevPos = pos + link[0].length;
-        lines.push(<AnidbLink character url={link[1]} text={link[2]} />);
+        lines.push(<AnidbLink key={pos} character url={link[1]} text={link[2]} />);
         link = charRegex.exec(text);
       }
     } catch (ex) {

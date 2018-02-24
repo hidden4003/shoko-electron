@@ -2,9 +2,9 @@ import { put, takeEvery, call, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import Events from '../events';
 import Api from './api';
-import { groups } from '../actions/groups';
 import { series } from '../actions/series';
 import { api } from '../actions/api';
+import { creators as orm } from '../actions/orm';
 
 function* Login() {
   const apiState = yield select(state => state.api);
@@ -37,7 +37,7 @@ function* getGroups() {
   if (resultJson.error) {
     alert(resultJson.message);
   } else {
-    yield put(groups(resultJson.data));
+    yield put(orm.fetchFullGroupList(resultJson.data));
   }
 }
 

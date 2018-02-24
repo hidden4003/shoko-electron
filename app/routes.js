@@ -15,6 +15,7 @@ export default () => (
       <Route exact path="/series" component={SeriesListPage} />
       <Route path="/series/:id" component={SeriesPage} />
       <Route exact path="/groups" component={GroupsPage} />
+      <Route exact path="/groups/:id" component={GroupsPage} />
       <Route exact path="/" component={LoginPage} />
     </Switch>
   </App>

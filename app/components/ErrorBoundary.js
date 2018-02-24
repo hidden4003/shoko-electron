@@ -13,9 +13,7 @@ export default class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
       const { error, info } = this.state;
-      console.log(info);
       return (
         <div style={{ marginLeft: '1rem', textAlign: 'center' }}>
           <h2>We have run into a problem:</h2>

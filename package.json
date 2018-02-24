@@ -202,6 +202,7 @@
     "reactstrap": "^5.0.0-beta",
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
+    "redux-orm": "^0.9.4",
     "redux-saga": "^0.16.0",
     "redux-thunk": "^2.2.0",
     "sessionstorage": "^0.0.2",

@@ -10,12 +10,19 @@ import AnidbDescription from './AnidbDescription';
 
 class Group extends PureComponent {
   static propTypes = {
+    isGroup: PropTypes.bool,
     group: PropTypes.object,
     openSeries: PropTypes.func.isRequired,
+    openGroup: PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    isGroup: true,
+    group: {},
   };
 
   render() {
-    const { group, openSeries } = this.props;
+    const { group, openSeries, isGroup, openGroup } = this.props;
     const groupId = `group${group.id}`;
 
     let unwatched = 0;
@@ -25,12 +32,12 @@ class Group extends PureComponent {
 
     const tags = [];
     forEach(group.tags, (tag) => {
-      //if (tags.length > 8) { return false; }
+      // if (tags.length > 8) { return false; }
       tags.push(<span className="badge badge-pill">{tag}</span>);
     });
 
     return (
-      <div className="group" data-tip data-for={groupId} data-delay-show="500" onClick={() => { openSeries(group.id); }}>
+      <div className="group" data-tip data-for={groupId} data-delay-show="500" onClick={() => { isGroup ? openGroup(group.id) : openSeries(group.id); }}>
         <LazyLoad once overflow height={250}><SeriesImage poster first art={group.art} /></LazyLoad>
         {unwatched > 0 && <div className="unwatched">{unwatched}</div>}
         <div className="title">
@@ -63,6 +70,9 @@ function mapDispatchToProps(dispatch) {
     openSeries: (id) => {
       dispatch(push(`/series/${id}`));
     },
+    openGroup: (id) => {
+      dispatch(push(`/groups/${id}`));
+    }
   };
 }
 
