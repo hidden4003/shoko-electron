@@ -8,7 +8,7 @@ import './Groups.global.css';
 import SiteMenuBar from './SiteMenuBar';
 import SiteNavbar from './SiteNavbar';
 import Events from '../events/index';
-import Group from './Group';
+import Group from './groups/Group';
 
 class SeriesList extends Component {
   static propTypes = {

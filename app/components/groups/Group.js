@@ -5,8 +5,8 @@ import Tooltip from 'react-tooltip';
 import { forEach } from 'lodash';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-import SeriesImage from './SeriesImage';
-import AnidbDescription from './AnidbDescription';
+import SeriesImage from '../SeriesImage';
+import AnidbDescription from '../AnidbDescription';
 
 class Group extends PureComponent {
   static propTypes = {

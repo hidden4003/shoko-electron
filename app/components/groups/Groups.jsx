@@ -3,34 +3,37 @@ import PropTypes from 'prop-types';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import { connect } from 'react-redux';
 import { forceCheck } from 'react-lazyload';
-import { createSelector } from 'redux-orm';
 
-import selectors from '../orm/selectors';
-import './Groups.global.css';
-import Events from '../events/index';
+import selectors from '../../orm/selectors';
+import '../Groups.global.css';
+import Events from '../../events/index';
 import Group from './Group';
-import orm from '../orm/orm';
+import Panel from './Panel';
 
 class Groups extends Component {
   static propTypes = {
     groups: PropTypes.array,
     getGroups: PropTypes.func,
+    filter: PropTypes.string,
+    isGroup: PropTypes.bool,
   };
 
   componentDidMount() {
-    const { getGroups } = this.props;
-    getGroups();
+    const { getGroups, groups } = this.props;
+    if (groups.length === 0) getGroups();
   }
 
   render() {
-    const { groups } = this.props;
+    const { groups, isGroup, filter } = this.props;
 
     return (
       <div className="page page-groups">
         <PerfectScrollbar onScrollY={forceCheck}>
-          <div className="groups-container">
-            {groups.map((group) => (<Group key={group.id} group={group} />))}
-          </div>
+          <Panel title={filter}>
+            <div className="groups-container">
+              {groups.map((group) => (<Group isGroup={isGroup} key={group.id} group={group} />))}
+            </div>
+          </Panel>
         </PerfectScrollbar>
       </div>
     );
@@ -45,15 +48,22 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state, ownProps) {
   let groupId;
+  let group;
   try {
     groupId = ownProps.match.params.id;
-    console.log(selectors.seriesByGroup(groupId)(state));
   } catch (ex) {
     groupId = undefined;
   }
 
+  if (groupId) {
+    group = selectors.groupById(groupId)(state);
+    console.log(group);
+  }
+
   return {
-    groups: groupId ? selectors.seriesByGroup(groupId)(state) : selectors.allGroups(state)
+    groups: groupId ? selectors.seriesByGroup(groupId)(state) : selectors.allGroups(state),
+    isGroup: groupId === undefined,
+    filter: groupId ? group.name : 'All groups',
   };
 }
 

@@ -12,7 +12,51 @@ body {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 1rem 2rem 0 2rem;
+    padding: 10px 12px;
+}
+
+.group-panel {
+    margin: 1rem 1rem 0 1rem;
+    background: #fff;
+    box-shadow: 0 0 2px 0 rgba(199,199,199,1);
+}
+
+.group-panel .header {
+    background: #1b2433;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14pt;
+    font-weight: bold;
+    color: #fff;
+    padding: 12px 0;
+    border-radius: 5px 5px 0 0;
+    position: relative;
+}
+
+.group-panel .header .title {
+    color: #279ceb;
+}
+
+.group-panel .header .button-container {
+    position: absolute;
+    right: 0;
+    top: 15px;
+}
+
+.group-panel .header .button {
+    margin-right: 16px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.group-panel .button.icon-settings {
+    background: url(../icons/16-Settings-Grey.png);
+}
+
+.group-panel .button.icon-refresh {
+    background: url(../icons/16-Refresh.png);
 }
 
 .group {

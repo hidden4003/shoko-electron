@@ -13,12 +13,18 @@ export const groupsSelector = createSelector(
 const seriesByGroupSelector = groupId => createSelector(
   orm,
   ormSelector,
-  () => groupId,
   session => session.Group.withId(groupId).series.toRefArray()
+);
+
+const groupByIdSelector = groupId => createSelector(
+  orm,
+  ormSelector,
+  session => session.Group.withId(groupId).ref
 );
 
 export default {
   allGroups: groupsSelector,
   seriesByGroup: seriesByGroupSelector,
+  groupById: groupByIdSelector,
 };
 

@@ -1,6 +1,6 @@
 // @flow
 import React, { Component } from 'react';
-import Groups from '../components/Groups';
+import Groups from '../components/groups/Groups';
 import SiteMenuBar from '../components/SiteMenuBar';
 import SiteNavbar from '../components/SiteNavbar';
 import ErrorBoundary from '../components/ErrorBoundary';
