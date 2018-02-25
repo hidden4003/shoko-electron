@@ -31,6 +31,25 @@ export class Series extends Model {
   // Declare any static or instance methods you need.
 }
 
+export class GroupFilter extends Model {
+  static modelName = 'GroupFilter';
+
+  static fields = {
+    id: attr(), // non-relational field for any value; optional but highly recommended
+    name: attr(),
+    size: attr(),
+    type: attr(),
+    url: attr(),
+    parent: fk('GroupFilter'),
+    groups: many('Group'),
+  };
+
+  toString() {
+    return `GroupFilter: ${this.name}`;
+  }
+  // Declare any static or instance methods you need.
+}
+
 export default [
-  Group, Series
+  Group, Series, GroupFilter
 ];

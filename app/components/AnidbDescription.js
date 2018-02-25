@@ -17,18 +17,15 @@ class AnidbDescription extends PureComponent {
     let pos = 0;
     let link = [];
 
-    try {
+    link = charRegex.exec(text);
+    while (link !== null) {
+      pos = link.index;
+      lines.push(text.substring(prevPos, pos));
+      prevPos = pos + link[0].length;
+      lines.push(<AnidbLink key={pos} character url={link[1]} text={link[2]} />);
       link = charRegex.exec(text);
-      while (link !== null) {
-        pos = link.index;
-        lines.push(text.substring(prevPos, pos));
-        prevPos = pos + link[0].length;
-        lines.push(<AnidbLink key={pos} character url={link[1]} text={link[2]} />);
-        link = charRegex.exec(text);
-      }
-    } catch (ex) {
-      console.log(ex);
     }
+
     if (prevPos < text.length) {
       lines.push(text.substring(prevPos));
     }

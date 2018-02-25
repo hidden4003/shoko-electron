@@ -59,6 +59,23 @@ body {
     background: url(../icons/16-Refresh.png);
 }
 
+.page-groups .group-filters-panel {
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 300px;
+    background: rgba(27,36,51,0.9);
+    z-index: 1;
+    padding: 20px;
+    overflow: auto;
+}
+
+.page-groups .group-filters-panel a {
+    color: #fff;
+    font-size: 12pt;
+    display: block;
+}
+
 .group {
     height: 250px;
     width: 200px;

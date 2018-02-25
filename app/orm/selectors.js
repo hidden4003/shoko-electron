@@ -22,9 +22,37 @@ const groupByIdSelector = groupId => createSelector(
   session => session.Group.withId(groupId).ref
 );
 
+const groupFiltersSelector = createSelector(
+  orm,
+  ormSelector,
+  session => session.GroupFilter.all().toModelArray()
+);
+
+const getFilter = filterId => createSelector(
+  orm,
+  ormSelector,
+  session => session.GroupFilter.withId(filterId).ref
+);
+
+const groupsByFilterSelector = filterId => createSelector(
+  orm,
+  ormSelector,
+  session => session.GroupFilter.withId(filterId).groups.toRefArray()
+);
+
+const filtersByParentSelector = parent => createSelector(
+  orm,
+  ormSelector,
+  session => session.GroupFilter.get({ parent }).filters.toRefArray()
+);
+
 export default {
   allGroups: groupsSelector,
   seriesByGroup: seriesByGroupSelector,
   groupById: groupByIdSelector,
+  allGroupFilters: groupFiltersSelector,
+  groupsByFilter: groupsByFilterSelector,
+  filtersByParent: filtersByParentSelector,
+  filterById: getFilter,
 };
 

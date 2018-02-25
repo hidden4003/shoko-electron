@@ -53,6 +53,13 @@ function getGroups(apiState) {
   return jsonApiResponse(apiState, '/group?nocast=1&tagfilter=63&level=1', '');
 }
 
+function getGroupFilters(apiState, id) {
+  if (id) {
+    return jsonApiResponse(apiState, `/filter?level=1&nocast=1&notag=1&id=${id}`, '');
+  }
+  return jsonApiResponse(apiState, '/filter', '');
+}
+
 function getSeries(apiState, id) {
   if (id) {
     return jsonApiResponse(apiState, `/serie?allpics=1&tagfilter=63&level=1&id=${id}`, '');
@@ -69,4 +76,5 @@ export default {
   getGroups,
   getSeries,
   postLogin,
+  getGroupFilters,
 };

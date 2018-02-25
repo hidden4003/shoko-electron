@@ -41,6 +41,17 @@ function* getGroups() {
   }
 }
 
+function* getGroupFilters(action) {
+  const apiState = yield select(state => state.api);
+
+  const resultJson = yield call(Api.getGroupFilters, apiState, action.payload);
+  if (resultJson.error) {
+    alert(resultJson.message);
+  } else {
+    yield put(orm.loadGroupFiltersList(resultJson.data));
+  }
+}
+
 function* getSeries(action) {
   const apiState = yield select(state => state.api);
 
@@ -74,6 +85,7 @@ function* windowMinimize() {
 export default function* rootSaga() {
   yield [
     takeEvery(Events.GET_GROUPS, getGroups),
+    takeEvery(Events.GET_GROUP_FILTERS, getGroupFilters),
     takeEvery(Events.GET_SERIES, getSeries),
     takeEvery(Events.LOGIN, Login),
     takeEvery(Events.API_SET_VALUE, apiSetValue),
