@@ -26,6 +26,12 @@ export default merge.smart(baseConfig, {
     filename: 'renderer.prod.js'
   },
 
+  resolve: {
+    alias: {
+      'redux-orm': 'redux-orm/src'
+    }
+  },
+
   module: {
     rules: [
       // Extract all .global.css to style.css as is

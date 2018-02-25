@@ -39,9 +39,6 @@ export default {
       path.join(__dirname, 'app'),
       'node_modules',
     ],
-    alias: {
-      'redux-orm': 'redux-orm/src'
-    }
   },
 
   plugins: [
