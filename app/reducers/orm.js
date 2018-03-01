@@ -22,7 +22,10 @@ export default function ormReducer(dbState, action) {
     case Actions.LOAD_GROUP_FILTERS_LIST:
       if (action.payload.filters) {
         forEach(action.payload.filters, (item) => {
-          GroupFilter.upsert(Object.assign({}, item, {groups: item.groups.map(g => g.id)}));
+          GroupFilter.upsert(Object.assign({}, item, {
+            parent: action.payload.parent || 0,
+            groups: item.groups.map(g => g.id)
+          }));
         });
       } else {
         const item = action.payload;

@@ -77,10 +77,7 @@ function mapStateToProps(state, ownProps) {
     console.log('selectors.filterById', selectors.filterById(filterId)(state)/*.groups*/);
     filter = selectors.filterById(filterId)(state);
     filteredGroups = selectors.groupsByFilter(filterId)(state);
-    // TODO: support filters inside a filter
-    /*if (groups.length === 0) {
-      const filters = selectors.filtersByParent(filterId)(state);
-    }*/
+    if (filteredGroups.length === 0) { filteredGroups = undefined; }
   }
 
   return {

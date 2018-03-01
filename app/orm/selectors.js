@@ -25,7 +25,7 @@ const groupByIdSelector = groupId => createSelector(
 const groupFiltersSelector = createSelector(
   orm,
   ormSelector,
-  session => session.GroupFilter.all().toModelArray()
+  session => session.GroupFilter.all().filter({ parent: 0 }).toModelArray()
 );
 
 const getFilter = filterId => createSelector(
@@ -43,7 +43,7 @@ const groupsByFilterSelector = filterId => createSelector(
 const filtersByParentSelector = parent => createSelector(
   orm,
   ormSelector,
-  session => session.GroupFilter.get({ parent }).filters.toRefArray()
+  session => session.GroupFilter.filter({ parent }).all().toRefArray()
 );
 
 export default {

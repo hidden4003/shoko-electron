@@ -70,6 +70,15 @@ body {
     overflow: auto;
 }
 
+.page-groups .group-filters-panel.closed {
+    overflow-x: hidden;
+    width: 0;
+    padding: 0;
+    transition-property: width;
+    transition-duration: .5s;
+    transition-timing-function: cubic-bezier(0, 1, 0.5, 1);
+}
+
 .page-groups .group-filters-panel a {
     color: #fff;
     font-size: 12pt;

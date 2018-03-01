@@ -1,17 +1,16 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { forEach } from 'lodash';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import selectors from '../../orm/selectors';
 import Events from '../../events';
-
 
 class Panel extends PureComponent {
   static propTypes = {
     filters: PropTypes.array,
     filter: PropTypes.number,
     getFilters: PropTypes.func.isRequired,
+    visible: PropTypes.bool.isRequired,
   };
 
   static defaultProps = {
@@ -34,9 +33,9 @@ class Panel extends PureComponent {
   };
 
   render() {
-    const { filters } = this.props;
+    const { filters, visible } = this.props;
     return (
-      <div className="group-filters-panel">
+      <div className={`group-filters-panel ${visible === false ? 'closed' : ''}`}>
         {filters.map((filter) => {
           return <Link to={`/groups/filter/${filter.id}`} key={filter.id}>{filter.name} ({filter.size})</Link>
         })}
@@ -51,9 +50,17 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
+  const filterId = ownProps.filter;
+  let filters;
+  try {
+    filters = filterId > 0 ? selectors.filtersByParent(filterId)(state) : selectors.allGroupFilters(state);
+  } catch (ex) {
+    filters = [];
+  }
   return {
-    filters: selectors.allGroupFilters(state)
+    filters,
+    visible: state.ui.groupFilter,
   };
 }
 

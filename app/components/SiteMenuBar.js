@@ -2,6 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import uiActions from '../actions/ui';
 
 class SiteMenuBar extends Component {
   static handleMouseOver() {
@@ -15,6 +16,13 @@ class SiteMenuBar extends Component {
       document.body.classList.toggle('site-menubar-hover', false);
     }
   }
+
+  static emptyfn() {}
+
+  toggleFilter = (e) => {
+    e.preventDefault();
+    this.props.toggleFilter();
+  };
 
   render() {
     const { pathname } = this.props.router.location;
@@ -59,7 +67,7 @@ class SiteMenuBar extends Component {
                 </Link>
               </li>
               <li className={pathname === '/groups' ? classActiveSub : classNormalSub}>
-                <Link to="/groups">
+                <Link to="/groups" onClick={pathname === '/groups' ? this.toggleFilter : SiteMenuBar.emptyfn()}>
                   <i className="site-menu-icon wb-layout" aria-hidden="true" />
                   <span className="site-menu-title">Groups</span>
                   <span className="site-menu-arrow" />
@@ -82,4 +90,10 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps)(SiteMenuBar);
+function mapDispatchToProps(dispatch) {
+  return {
+    toggleFilter: () => { dispatch(uiActions.setUi({ groupFilter: true })); }
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SiteMenuBar);

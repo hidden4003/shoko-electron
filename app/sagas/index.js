@@ -1,10 +1,12 @@
 import { put, takeEvery, call, select } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
+import { forceCheck } from 'react-lazyload';
 import Events from '../events';
 import Api from './api';
 import { series } from '../actions/series';
 import { api } from '../actions/api';
 import { creators as orm } from '../actions/orm';
+import uiActions from '../actions/ui';
 
 function* Login() {
   const apiState = yield select(state => state.api);
@@ -48,7 +50,13 @@ function* getGroupFilters(action) {
   if (resultJson.error) {
     alert(resultJson.message);
   } else {
+    resultJson.data.parent = action.payload;
     yield put(orm.loadGroupFiltersList(resultJson.data));
+    if (typeof resultJson.data.filters === 'undefined') {
+      // It is a group so hide the filter
+      yield put(uiActions.setUi({ groupFilter: false }));
+      forceCheck()
+    }
   }
 }
 
