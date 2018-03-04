@@ -26,6 +26,17 @@ function* Login() {
   yield put(push({ pathname: '/home' }));
 }
 
+function* LoginImage() {
+  const apiState = yield select(state => state.api);
+  const result = yield call(Api.getRandomImage, apiState);
+  if (result.error) {
+    return;
+  }
+
+  const blob = yield result.blob();
+  yield put(uiActions.setUi({ loginImage: URL.createObjectURL(blob) }));
+}
+
 function* apiSetValue(action) {
   const { payload } = action;
 
@@ -52,10 +63,10 @@ function* getGroupFilters(action) {
   } else {
     resultJson.data.parent = action.payload;
     yield put(orm.loadGroupFiltersList(resultJson.data));
-    if (typeof resultJson.data.filters === 'undefined') {
+    if (resultJson.data.type !== 'filters') {
       // It is a group so hide the filter
       yield put(uiActions.setUi({ groupFilter: false }));
-      forceCheck()
+      forceCheck();
     }
   }
 }
@@ -96,6 +107,7 @@ export default function* rootSaga() {
     takeEvery(Events.GET_GROUP_FILTERS, getGroupFilters),
     takeEvery(Events.GET_SERIES, getSeries),
     takeEvery(Events.LOGIN, Login),
+    takeEvery(Events.LOGIN_IMAGE, LoginImage),
     takeEvery(Events.API_SET_VALUE, apiSetValue),
     takeEvery(Events.EXIT, Exit),
     takeEvery(Events.WINDOW_MAXIMIZE, windowMaximize),

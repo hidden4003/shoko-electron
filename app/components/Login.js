@@ -9,15 +9,22 @@ class Login extends Component {
   static propTypes = {
     setValue: PropTypes.func.isRequired,
     login: PropTypes.func.isRequired,
+    loginImage: PropTypes.func.isRequired,
+    image: PropTypes.string,
     api: PropTypes.object.isRequired,
   };
 
+  componentDidMount(){
+    this.props.loginImage();
+  }
+
   render() {
-    const { setValue, login, api } = this.props;
+    const { setValue, login, api, image } = this.props;
     const { user, password, host } = api;
 
     return (
       <div className="page-content">
+        {image !== '' && <img alt="" className="login-bg" src={image} />}
         <div className="page-login-main animation-slide-right animation-duration-1">
           <div className="app-info">
             <div className="font-size-24">SHOKO DESKTOP</div>
@@ -77,15 +84,17 @@ function mapDispatchToProps(dispatch) {
     setValue: (field, value) => {
       dispatch({ type: Events.API_SET_VALUE, payload: { field, value } });
     },
-    login: () => { dispatch({ type: Events.LOGIN }); }
+    login: () => { dispatch({ type: Events.LOGIN }); },
+    loginImage: () => { dispatch({ type: Events.LOGIN_IMAGE }); }
   };
 }
 
 function mapStateToProps(state) {
-  const { api } = state;
+  const { api, ui } = state;
 
   return {
     api,
+    image: ui.loginImage || '',
   };
 }
 

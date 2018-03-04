@@ -71,10 +71,15 @@ function postLogin(host, data) {
   return jsonApiResponse({ key: '', host }, '/auth', data, 'POST');
 }
 
+function getRandomImage(apiState) {
+  return apiCall(apiState, '/image/7/random', '');
+}
+
 
 export default {
   getGroups,
   getSeries,
   postLogin,
   getGroupFilters,
+  getRandomImage,
 };

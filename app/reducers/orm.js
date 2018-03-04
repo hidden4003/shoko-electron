@@ -20,11 +20,11 @@ export default function ormReducer(dbState, action) {
       });
       break;
     case Actions.LOAD_GROUP_FILTERS_LIST:
-      if (action.payload.filters) {
+      if (action.payload.type === 'filters') {
         forEach(action.payload.filters, (item) => {
           GroupFilter.upsert(Object.assign({}, item, {
             parent: action.payload.parent || 0,
-            groups: item.groups.map(g => g.id)
+            groups: (item.groups && item.groups.map(g => g.id)) || []
           }));
         });
       } else {

@@ -3,6 +3,14 @@
   overflow-x: hidden;
 }
 
+.page-login-v2 .login-bg {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  position: absolute;
+  left: 0;
+}
+
 .page-login-v2:before {
   background-image: url("../images/login.jpg");
 }
@@ -49,7 +57,7 @@
   min-height: 100%;
   padding: 150px 60px 180px;
   color: #76838f;
-  background: #fff;
+  background: rgba(255,255,255,0.85);
 }
 
 .page-login-v2 .page-login-main .brand {
