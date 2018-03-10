@@ -79,7 +79,6 @@ body {
     width: 260px;
     background: #263238;
     color: rgba(163, 175, 183, .9);
-    font-family: "Roboto", sans-serif;
     -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
     box-shadow: 0 2px 4px rgba(0, 0, 0, .08);
     -webkit-transition: width .25s, opacity .25s, -webkit-transform .25s;
@@ -186,8 +185,10 @@ body {
 .site-menu-icon {
     display: inline-block;
     margin-right: 16px;
-    width: 1em;
+    width: 16px;
+    height: 16px;
     text-align: center;
+    vertical-align: middle;
 }
 
 .site-menu-title {
@@ -257,9 +258,16 @@ body {
     background-color: rgba(255, 255, 255, .02);
 }
 
+.site-menu-item a svg {
+    fill: rgba(163, 175, 183, .9);
+}
+
+.site-menu-item:hover > a svg {
+    fill: rgba(255, 255, 255, .8);
+    background-color: rgba(255, 255, 255, .02);
+}
+
 .site-menu-item.active {
-    /*background: #006cab;
-    border-left: 7px solid #279ceb;*/
     background: linear-gradient(to right, #279ceb 0%,#279ceb 15%,#006cab 15%,#006cab 100%);
 }
 
@@ -268,12 +276,17 @@ body {
     background: transparent;
 }
 
+.site-menu-item.active > a svg {
+    fill: #fff;
+    background: transparent;
+}
+
 .site-menu-item.active.hover > a {
     background: transparent;
 }
 
 .site-menu > .site-menu-item {
-    font-size: 14px;
+    font-size: 16px;
     padding: 0;
 }
 

@@ -144,11 +144,24 @@ export default merge.smart(baseConfig, {
       // SVG Font
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        exclude: '/app/icons/svg',
         use: {
           loader: 'url-loader',
           options: {
             limit: 10000,
             mimetype: 'image/svg+xml'
+          }
+        }
+      },
+      // SVG icons
+      {
+        test: /\.svg$/,
+        include: '/app/icons/svg',
+        use: {
+          loader: 'svgr/webpack',
+          options: {
+            prettier: false,
+            babel: false
           }
         }
       },

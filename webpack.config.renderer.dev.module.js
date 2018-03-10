@@ -1,5 +1,5 @@
 /* eslint global-require: 0, import/no-dynamic-require: 0 */
-
+import path from 'path';
 
 export default {
   rules: [
@@ -17,7 +17,7 @@ export default {
             'transform-class-properties',
             'transform-es2015-classes',
             'react-hot-loader/babel'
-          ],
+          ]
         }
       }
     },
@@ -30,8 +30,8 @@ export default {
         {
           loader: 'css-loader',
           options: {
-            sourceMap: true,
-          },
+            sourceMap: true
+          }
         }
       ]
     },
@@ -47,9 +47,9 @@ export default {
             modules: true,
             sourceMap: true,
             importLoaders: 1,
-            localIdentName: '[name]__[local]__[hash:base64:5]',
+            localIdentName: '[name]__[local]__[hash:base64:5]'
           }
-        },
+        }
       ]
     },
     // SASS support - compile all .global.scss files and pipe it to style.css
@@ -62,8 +62,8 @@ export default {
         {
           loader: 'css-loader',
           options: {
-            sourceMap: true,
-          },
+            sourceMap: true
+          }
         },
         {
           loader: 'sass-loader'
@@ -83,7 +83,7 @@ export default {
             modules: true,
             sourceMap: true,
             importLoaders: 1,
-            localIdentName: '[name]__[local]__[hash:base64:5]',
+            localIdentName: '[name]__[local]__[hash:base64:5]'
           }
         },
         {
@@ -98,9 +98,9 @@ export default {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          mimetype: 'application/font-woff',
+          mimetype: 'application/font-woff'
         }
-      },
+      }
     },
     // WOFF2 Font
     {
@@ -109,7 +109,7 @@ export default {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          mimetype: 'application/font-woff',
+          mimetype: 'application/font-woff'
         }
       }
     },
@@ -127,35 +127,35 @@ export default {
     // EOT Font
     {
       test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      use: 'file-loader',
+      use: 'file-loader'
     },
     // SVG Font
     {
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-      exclude: '/app/icons/svg',
+      exclude: [path.resolve(__dirname, 'app/icons/svg')],
       use: {
         loader: 'url-loader',
         options: {
           limit: 10000,
-          mimetype: 'image/svg+xml',
+          mimetype: 'image/svg+xml'
         }
       }
     },
     // SVG icons
-    /*{
-      test: /\.inline\.svg$/,
+    {
+      test: /\.svg$/,
+      include: [path.resolve(__dirname, 'app/icons/svg')],
       use: {
         loader: 'svgr/webpack',
         options: {
-          prettier: false,
-          babel: false,
+          // icon: true,
         }
       }
-    },*/
+    },
     // Common Image Formats
     {
       test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/,
-      use: 'url-loader',
-    },
+      use: 'url-loader'
+    }
   ]
 };
