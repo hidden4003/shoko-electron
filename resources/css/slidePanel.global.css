@@ -72,10 +72,7 @@
     bottom: 0;
     left: 0;
 }
-.slidePanel .scrollable-container
-{
-    height: 100%;
-}
+
 .slidePanel-show
 {
     visibility: visible;
@@ -124,11 +121,6 @@
 .slidePanel-loading-show
 {
     visibility: visible;
-}
-
-.slidePanel-scrollable
-{
-    height: 100%;
 }
 
 .slidePanel-header

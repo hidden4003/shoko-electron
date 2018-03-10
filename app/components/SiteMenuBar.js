@@ -67,15 +67,12 @@ class SiteMenuBar extends Component {
             </a>
           </div>
         </div>
-        <div className="mm-panels scrollable scrollable-inverse scrollable-vertical is-disabled">
-          <div
-            className="mm-panel mm-hasnavbar mm-opened mm-current scrollable-container"
-            id="mm-0"
-          >
-            <div className="mm-navbar scrollable-content">
+        <div className="mm-panels is-disabled">
+          <div className="mm-panel mm-hasnavbar mm-opened mm-current" id="mm-0">
+            <div className="mm-navbar">
               <a className="mm-title">Menu</a>
             </div>
-            <ul className="site-menu mm-listview scrollable-content">
+            <ul className="site-menu mm-listview">
               <li className={pathname === '/home' ? classActive : classNormal}>
                 <Link to="/home">
                   <DashboardIcon className="site-menu-icon" />
@@ -111,12 +108,6 @@ class SiteMenuBar extends Component {
                 </Link>
               </li>
             </ul>
-          </div>
-          <div
-            className="scrollable-bar scrollable-bar-vertical scrollable-bar-hide is-disabled"
-            draggable="false"
-          >
-            <div className="scrollable-bar-handle" />
           </div>
         </div>
       </div>
