@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Dropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import {
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
+} from 'reactstrap';
 import { forEach } from 'lodash';
 
 export default class FilterDropdown extends Component {
   static propTypes = {
-    options: PropTypes.arrayOf(PropTypes.shape({
-      key: PropTypes.string,
-      value: PropTypes.string,
-    })).isRequired,
-    onSelect: PropTypes.func.isRequired,
+    options: PropTypes.arrayOf(
+      PropTypes.shape({
+        key: PropTypes.string,
+        value: PropTypes.string
+      })
+    ).isRequired,
+    onSelect: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -19,7 +26,7 @@ export default class FilterDropdown extends Component {
     this.selectOption = this.selectOption.bind(this);
     this.state = {
       dropdownOpen: false,
-      value: 0,
+      value: 0
     };
   }
 
@@ -43,7 +50,16 @@ export default class FilterDropdown extends Component {
   getOptions() {
     const options = [];
     forEach(this.props.options, (item, index) => {
-      options.push(<DropdownItem onClick={() => { this.selectOption(index); }}>{item.value}</DropdownItem>);
+      const option = (
+        <DropdownItem
+          onClick={() => {
+            this.selectOption(index);
+          }}
+        >
+          {item.value}
+        </DropdownItem>
+      );
+      options.push(option);
     });
     return options;
   }
@@ -53,12 +69,8 @@ export default class FilterDropdown extends Component {
     const { value } = this.state;
     return (
       <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-        <DropdownToggle caret>
-          {options[value].value}
-        </DropdownToggle>
-        <DropdownMenu>
-          {this.getOptions()}
-        </DropdownMenu>
+        <DropdownToggle caret>{options[value].value}</DropdownToggle>
+        <DropdownMenu>{this.getOptions()}</DropdownMenu>
       </Dropdown>
     );
   }

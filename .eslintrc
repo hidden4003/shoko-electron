@@ -28,6 +28,7 @@
     "promise/always-return": "error",
     "promise/catch-or-return": "error",
     "promise/no-native": "off",
+    "prefer-promise-reject-errors": "off",
     "react/sort-comp": ["error", {
       "order": ["type-annotations", "static-methods", "lifecycle", "everything-else", "render"]
     }],
@@ -36,13 +37,13 @@
     "react/prefer-stateless-function": "off"
   },
   "plugins": [
-    "flowtype",
+//    "flowtype",
     "import",
     "promise",
     "compat",
     "react"
-  ],
-  "settings": {
+  ]
+  ,"settings": {
     "import/resolver": {
       "webpack": {
         "config": "webpack.config.eslint.js"

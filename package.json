@@ -189,6 +189,7 @@
     "history": "^4.7.2",
     "isomorphic-fetch": "^2.2.1",
     "lodash": "^4.17.4",
+    "moment": "^2.21.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -208,7 +209,8 @@
     "redux-thunk": "^2.2.0",
     "sessionstorage": "^0.0.2",
     "source-map-support": "^0.5.3",
-    "svgr": "^1.8.1"
+    "svgr": "^1.8.1",
+    "uuid": "^3.2.1"
   },
   "devEngines": {
     "node": ">=7.x",

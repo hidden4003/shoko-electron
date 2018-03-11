@@ -13,12 +13,12 @@ class Group extends PureComponent {
     isGroup: PropTypes.bool,
     group: PropTypes.object,
     openSeries: PropTypes.func.isRequired,
-    openGroup: PropTypes.func.isRequired,
+    openGroup: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     isGroup: true,
-    group: {},
+    group: {}
   };
 
   render() {
@@ -31,14 +31,28 @@ class Group extends PureComponent {
     } catch (e) {}
 
     const tags = [];
-    forEach(group.tags, (tag) => {
+    forEach(group.tags, tag => {
       // if (tags.length > 8) { return false; }
-      tags.push(<span className="badge badge-pill">{tag}</span>);
+      tags.push(
+        <span key={tag} className="badge badge-pill">
+          {tag}
+        </span>
+      );
     });
 
     return (
-      <div className="group" data-tip data-for={groupId} data-delay-show="500" onClick={() => { isGroup ? openGroup(group.id) : openSeries(group.id); }}>
-        <LazyLoad once overflow height={250}><SeriesImage poster first art={group.art} /></LazyLoad>
+      <div
+        className="group"
+        data-tip
+        data-for={groupId}
+        data-delay-show="500"
+        onClick={() => {
+          isGroup ? openGroup(group.id) : openSeries(group.id);
+        }}
+      >
+        <LazyLoad once overflow height={250}>
+          <SeriesImage poster first art={group.art} />
+        </LazyLoad>
         {unwatched > 0 && <div className="unwatched">{unwatched}</div>}
         <div className="title">
           <div>
@@ -49,9 +63,18 @@ class Group extends PureComponent {
           <div className="group-tooltip">
             <SeriesImage banner first art={group.art} />
             <div>
-              <span><i className="icon icon-air" />{group.air}</span>
-              <span><i className="icon icon-episodes" />{group.local_sizes && group.local_sizes.Episodes}</span>
-              <span><i className="icon icon-rating" />{group.rating}</span>
+              <span>
+                <i className="icon icon-air" />
+                {group.air}
+              </span>
+              <span>
+                <i className="icon icon-episodes" />
+                {group.local_sizes && group.local_sizes.Episodes}
+              </span>
+              <span>
+                <i className="icon icon-rating" />
+                {group.rating}
+              </span>
             </div>
             <div className="tooltip-title">{group.name}</div>
             <div className="tooltip-description">
@@ -67,10 +90,10 @@ class Group extends PureComponent {
 
 function mapDispatchToProps(dispatch) {
   return {
-    openSeries: (id) => {
+    openSeries: id => {
       dispatch(push(`/series/${id}`));
     },
-    openGroup: (id) => {
+    openGroup: id => {
       dispatch(push(`/groups/${id}`));
     }
   };

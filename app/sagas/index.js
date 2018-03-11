@@ -1,4 +1,12 @@
-import { put, takeEvery, call, select } from 'redux-saga/effects';
+import {
+  put,
+  takeEvery,
+  call,
+  select,
+  fork,
+  all,
+  take
+} from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 import { forceCheck } from 'react-lazyload';
 import Events from '../events';
@@ -7,13 +15,14 @@ import { series } from '../actions/series';
 import { api } from '../actions/api';
 import { creators as orm } from '../actions/orm';
 import uiActions from '../actions/ui';
+import watchRequests, { queueRequest } from './ApiRequestQueue';
 
 function* Login() {
   const apiState = yield select(state => state.api);
   const data = {
     user: apiState.user,
     pass: apiState.password,
-    device: 'shoko-v2',
+    device: 'shoko-v2'
   };
 
   const resultJson = yield call(Api.postLogin, apiState.host, data);
@@ -44,9 +53,12 @@ function* apiSetValue(action) {
 }
 
 function* getGroups() {
-  const apiState = yield select(state => state.api);
+  // const apiState = yield select(state => state.api);
+  const reqId = yield queueRequest(Api.getGroups);
 
-  const resultJson = yield call(Api.getGroups, apiState);
+  const result = yield take(`API_RESPONSE_${reqId}`);
+  const resultJson = result.payload;
+  // const resultJson = yield call(Api.getGroups, apiState);
   if (resultJson.error) {
     alert(resultJson.message);
   } else {
@@ -55,9 +67,12 @@ function* getGroups() {
 }
 
 function* getGroupFilters(action) {
-  const apiState = yield select(state => state.api);
+  // const apiState = yield select(state => state.api);
+  const reqId = yield queueRequest(Api.getGroupFilters, action.payload);
 
-  const resultJson = yield call(Api.getGroupFilters, apiState, action.payload);
+  const result = yield take(`API_RESPONSE_${reqId}`);
+  const resultJson = result.payload;
+  // const resultJson = yield call(Api.getGroupFilters, apiState, action.payload);
   if (resultJson.error) {
     alert(resultJson.message);
   } else {
@@ -91,7 +106,11 @@ function* windowMaximize() {
   const { remote } = require('electron');
   const window = remote.BrowserWindow.getFocusedWindow();
 
-  if (window.isMaximized()) { window.unmaximize(); } else { window.maximize(); }
+  if (window.isMaximized()) {
+    window.unmaximize();
+  } else {
+    window.maximize();
+  }
   yield null;
 }
 
@@ -102,7 +121,7 @@ function* windowMinimize() {
 }
 
 export default function* rootSaga() {
-  yield [
+  yield all([
     takeEvery(Events.GET_GROUPS, getGroups),
     takeEvery(Events.GET_GROUP_FILTERS, getGroupFilters),
     takeEvery(Events.GET_SERIES, getSeries),
@@ -112,5 +131,6 @@ export default function* rootSaga() {
     takeEvery(Events.EXIT, Exit),
     takeEvery(Events.WINDOW_MAXIMIZE, windowMaximize),
     takeEvery(Events.WINDOW_MINIMIZE, windowMinimize),
-  ];
+    fork(watchRequests)
+  ]);
 }
