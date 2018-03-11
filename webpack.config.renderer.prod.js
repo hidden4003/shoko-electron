@@ -141,6 +141,14 @@ export default merge.smart(baseConfig, {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
         use: 'file-loader'
       },
+      // SVG icons
+      {
+        test: /\.svg$/,
+        issuer: {
+          test: /\.jsx?$/
+        },
+        use: ['svgr/webpack', 'url-loader']
+      },
       // SVG Font
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
@@ -150,18 +158,6 @@ export default merge.smart(baseConfig, {
           options: {
             limit: 10000,
             mimetype: 'image/svg+xml'
-          }
-        }
-      },
-      // SVG icons
-      {
-        test: /\.svg$/,
-        include: '/app/icons/svg',
-        use: {
-          loader: 'svgr/webpack',
-          options: {
-            prettier: false,
-            babel: false
           }
         }
       },

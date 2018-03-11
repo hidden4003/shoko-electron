@@ -145,12 +145,7 @@ export default {
     {
       test: /\.svg$/,
       include: [path.resolve(__dirname, 'app/icons/svg')],
-      use: {
-        loader: 'svgr/webpack',
-        options: {
-          // icon: true,
-        }
-      }
+      use: ['svgr/webpack', 'url-loader']
     },
     // Common Image Formats
     {

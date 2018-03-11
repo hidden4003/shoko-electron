@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import uiActions from '../actions/ui';
-import CollectionIcon from '../icons/svg/collection.svg';
-import DashboardIcon from '../icons/svg/dashboard.svg';
-import SeriesIcon from '../icons/svg/series.svg';
+import { ReactComponent as CollectionIcon } from '../icons/svg/collection.svg';
+import { ReactComponent as DashboardIcon } from '../icons/svg/dashboard.svg';
+import { ReactComponent as SeriesIcon } from '../icons/svg/series.svg';
 
 class SiteMenuBar extends Component {
   static handleMouseOver() {

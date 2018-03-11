@@ -5,8 +5,8 @@ import { forEach } from 'lodash';
 import { Dropdown, DropdownMenu, DropdownToggle } from 'reactstrap';
 import moment from 'moment';
 
-import DashboardIcon from '../icons/svg/dashboard.svg';
-import NotificationsIcon from '../icons/svg/notifications.svg';
+import { ReactComponent as DashboardIcon } from '../icons/svg/dashboard.svg';
+import { ReactComponent as NotificationsIcon } from '../icons/svg/notifications.svg';
 
 import './RequestQueue.global.css';
 
