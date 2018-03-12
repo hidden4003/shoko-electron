@@ -1,6 +1,6 @@
 {
   "name": "shoko-electron",
-  "author": "Shoko",
+  "author": { "name": "Shoko", "email": "hidden4003@users.noreply.github.com" },
   "productName": "shoko-electron",
   "version": "0.1.8",
   "description": "Shoko Electron",
