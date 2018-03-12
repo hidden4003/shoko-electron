@@ -5,6 +5,7 @@ import api from './api';
 import orm from './orm';
 import ui from './ui';
 import queue from './queue';
+import dashboard from './dashboard';
 
 const rootReducer = combineReducers({
   api,
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   router,
   orm,
   ui,
-  queue
+  queue,
+  dashboard
 });
 
 export default rootReducer;

@@ -73,8 +73,12 @@ class SiteMenuBar extends Component {
               <a className="mm-title">Menu</a>
             </div>
             <ul className="site-menu mm-listview">
-              <li className={pathname === '/home' ? classActive : classNormal}>
-                <Link to="/home">
+              <li
+                className={
+                  pathname === '/dashboard' ? classActive : classNormal
+                }
+              >
+                <Link to="/dashboard">
                   <DashboardIcon className="site-menu-icon" />
                   <span className="site-menu-title">Dashboard</span>
                   <span className="site-menu-arrow" />
@@ -83,11 +87,15 @@ class SiteMenuBar extends Component {
               <li
                 className={pathname === '/series' ? classActive : classNormal}
               >
-                <Link to="/series">
+                <a
+                  onClick={e => {
+                    e.preventDefault();
+                  }}
+                >
                   <SeriesIcon className="site-menu-icon" />
                   <span className="site-menu-title">Series</span>
                   <span className="site-menu-arrow" />
-                </Link>
+                </a>
               </li>
               <li
                 className={

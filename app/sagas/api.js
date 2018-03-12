@@ -99,10 +99,15 @@ function getRandomImage(apiState) {
   }));
 }
 
+function getDashboard(apiState) {
+  return jsonApiResponse(apiState, '/dashboard', '');
+}
+
 export default {
   getGroups,
   getSeries,
   postLogin,
   getGroupFilters,
-  getRandomImage
+  getRandomImage,
+  getDashboard
 };
