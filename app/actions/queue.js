@@ -9,8 +9,16 @@ const apiQueueRemove = createAction(API_QUEUE_REMOVE);
 export const API_QUEUE_UPDATE = 'API_QUEUE_UPDATE';
 const apiQueueUpdate = createAction(API_QUEUE_UPDATE);
 
+export const NOTIFICATIONS_QUEUE_ADD = 'NOTIFICATIONS_QUEUE_ADD';
+const notificationsQueueAdd = createAction(NOTIFICATIONS_QUEUE_ADD);
+
+export const NOTIFICATIONS_QUEUE_REMOVE = 'NOTIFICATIONS_QUEUE_REMOVE';
+const notificationsQueueRemove = createAction(NOTIFICATIONS_QUEUE_REMOVE);
+
 export default {
   apiQueueAdd,
   apiQueueRemove,
-  apiQueueUpdate
+  apiQueueUpdate,
+  notificationsQueueAdd,
+  notificationsQueueRemove
 };

@@ -1,10 +1,12 @@
 import { handleActions } from 'redux-actions';
 import { combineReducers } from 'redux';
-import { filter, forEach } from 'lodash';
+import { forEach } from 'lodash';
 import {
   API_QUEUE_ADD,
   API_QUEUE_REMOVE,
-  API_QUEUE_UPDATE
+  API_QUEUE_UPDATE,
+  NOTIFICATIONS_QUEUE_ADD,
+  NOTIFICATIONS_QUEUE_REMOVE
 } from '../actions/queue';
 
 const api = handleActions(
@@ -46,6 +48,24 @@ const api = handleActions(
   {}
 );
 
+const notifications = handleActions(
+  {
+    [NOTIFICATIONS_QUEUE_ADD]: (state, action) =>
+      Object.assign({}, state, { [action.payload.id]: action.payload }),
+    [NOTIFICATIONS_QUEUE_REMOVE]: (state, action) => {
+      const reqId = action.payload;
+      if (!state[reqId]) {
+        return state;
+      }
+      const items = Object.assign({}, state);
+      delete items[reqId];
+      return items;
+    }
+  },
+  {}
+);
+
 export default combineReducers({
-  api
+  api,
+  notifications
 });

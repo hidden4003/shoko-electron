@@ -2,9 +2,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { forEach } from 'lodash';
 import './Login.global.css';
 import Events from '../events';
-import { forEach } from 'lodash';
+import NotificationsQueue from './NotificationsQueue';
 
 class Login extends Component {
   static propTypes = {
@@ -111,6 +112,7 @@ class Login extends Component {
             </div>
           </footer>
         </div>
+        <NotificationsQueue />
       </div>
     );
   }

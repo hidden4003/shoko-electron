@@ -17,6 +17,9 @@ import { creators as orm } from '../actions/orm';
 import uiActions from '../actions/ui';
 import dashboardActions from '../actions/dashboard';
 import watchRequests, { queueRequest } from './ApiRequestQueue';
+import notificationsWatcher, {
+  queueRequest as queueNotification
+} from './NotificationsQueue';
 
 function* Login() {
   const apiState = yield select(state => state.api);
@@ -31,7 +34,7 @@ function* Login() {
   const result = yield take(`API_RESPONSE_${reqId}`);
   const resultJson = result.payload;
   if (resultJson.error) {
-    alert(resultJson.message);
+    yield queueNotification({ type: 'error', message: resultJson.message });
     return;
   }
 
@@ -144,6 +147,7 @@ export default function* rootSaga() {
     takeEvery(Events.WINDOW_MAXIMIZE, windowMaximize),
     takeEvery(Events.WINDOW_MINIMIZE, windowMinimize),
     takeEvery(Events.GET_DASHBOARD, getDashboard),
-    fork(watchRequests)
+    fork(watchRequests),
+    fork(notificationsWatcher)
   ]);
 }
