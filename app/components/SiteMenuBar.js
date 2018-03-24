@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import uiActions from '../actions/ui';
 import { ReactComponent as CollectionIcon } from '../icons/svg/collection.svg';
 import { ReactComponent as DashboardIcon } from '../icons/svg/dashboard.svg';
-import { ReactComponent as SeriesIcon } from '../icons/svg/series.svg';
 
 class SiteMenuBar extends Component {
   static handleMouseOver() {
@@ -83,19 +82,6 @@ class SiteMenuBar extends Component {
                   <span className="site-menu-title">Dashboard</span>
                   <span className="site-menu-arrow" />
                 </Link>
-              </li>
-              <li
-                className={pathname === '/series' ? classActive : classNormal}
-              >
-                <a
-                  onClick={e => {
-                    e.preventDefault();
-                  }}
-                >
-                  <SeriesIcon className="site-menu-icon" />
-                  <span className="site-menu-title">Series</span>
-                  <span className="site-menu-arrow" />
-                </a>
               </li>
               <li
                 className={

@@ -56,9 +56,6 @@ class RequestQueue extends Component {
           .as('milliseconds');
         startTime = startTime.fromNow();
       }
-      if (!req.stamp) {
-        console.log(req);
-      }
 
       items.push(
         <div key={req.requestId} className="material-notification">
@@ -78,9 +75,7 @@ class RequestQueue extends Component {
           </header>
           <div className="material-notification__content">
             <p className="material-notification__content-text">{req.status}</p>
-            <p className="material-notification__content-text">
-              {req.requestId}
-            </p>
+            <p className="material-notification__content-text">{req.name}</p>
           </div>
           {(req.status === 'Processing' || req.status === 'Pending') && (
             <footer className="material-notification__footer">
@@ -92,6 +87,7 @@ class RequestQueue extends Component {
         </div>
       );
     });
+    items.reverse();
     return { items, status };
   }
 

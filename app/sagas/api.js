@@ -88,8 +88,8 @@ function getSeries(apiState, id) {
   return jsonApiResponse(apiState, '/serie?nocast=1&tagfilter=63', '');
 }
 
-function postLogin(host, data) {
-  return jsonApiResponse({ key: '', host }, '/auth', data, 'POST');
+function postLogin(apiState, data) {
+  return jsonApiResponse(apiState, '/auth', data, 'POST');
 }
 
 function getRandomImage(apiState) {
@@ -100,7 +100,7 @@ function getRandomImage(apiState) {
 }
 
 function getDashboard(apiState) {
-  return jsonApiResponse(apiState, '/dashboard', '');
+  return jsonApiResponse(apiState, '/modules/stats', '');
 }
 
 export default {

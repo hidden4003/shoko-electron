@@ -4,46 +4,50 @@ import { connect } from 'react-redux';
 import { forEach } from 'lodash';
 import { Link } from 'react-router-dom';
 
-import './Series.global.css';
+import '../Series.global.css';
 
 class RoutedTabpanel extends Component {
   static propTypes = {
-    config: PropTypes.arrayOf(PropTypes.shape({
-      route: PropTypes.string,
-      title: PropTypes.string,
-    })).isRequired,
+    config: PropTypes.arrayOf(
+      PropTypes.shape({
+        route: PropTypes.string,
+        title: PropTypes.string
+      })
+    ).isRequired,
     route: PropTypes.string,
     location: PropTypes.shape({
-      pathname: PropTypes.string,
-    }).isRequired,
+      pathname: PropTypes.string
+    }).isRequired
   };
 
   static defaultProps = {
-    route: '',
+    route: ''
   };
 
   render() {
     const { route, config, location } = this.props;
     const tabs = [];
-    forEach(config, (item) => {
+    forEach(config, item => {
       const classes = ['nav-link'];
       if (`${route}${item.route}` === location.pathname) {
         classes.push('active');
       }
-      tabs.push(<li className="nav-item"><Link className={classes.join(' ')} to={`${route}${item.route}`}>{item.title}</Link></li>);
+      tabs.push(
+        <li className="nav-item">
+          <Link className={classes.join(' ')} to={`${route}${item.route}`}>
+            {item.title}
+          </Link>
+        </li>
+      );
     });
 
-    return (
-      <ul className="nav nav-tabs nav-tabs-line">
-        {tabs}
-      </ul>
-    );
+    return <ul className="nav nav-tabs nav-tabs-line">{tabs}</ul>;
   }
 }
 
 function mapStateToProps(state) {
   return {
-    location: state.router.location,
+    location: state.router.location
   };
 }
 

@@ -26,7 +26,10 @@ function* Login() {
     device: 'shoko-v2'
   };
 
-  const resultJson = yield call(Api.postLogin, apiState.host, data);
+  const reqId = yield queueRequest(Api.postLogin, data);
+
+  const result = yield take(`API_RESPONSE_${reqId}`);
+  const resultJson = result.payload;
   if (resultJson.error) {
     alert(resultJson.message);
     return;

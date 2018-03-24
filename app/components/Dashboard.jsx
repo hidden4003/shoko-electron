@@ -11,6 +11,10 @@ class Dashboard extends Component {
   static propTypes = {
     fileCount: PropTypes.number,
     seriesCount: PropTypes.number,
+    collectionSize: PropTypes.string,
+    watchedFiles: PropTypes.number,
+    watchedSeries: PropTypes.number,
+    hoursWatched: PropTypes.number,
     files: PropTypes.arrayOf(PropTypes.shape({
       name: PropTypes.string,
       size: PropTypes.string,
@@ -21,6 +25,10 @@ class Dashboard extends Component {
   static defaultProps = {
     fileCount: 0,
     seriesCount: 0,
+    collectionSize: '--',
+    watchedFiles: 0,
+    watchedSeries: 0,
+    hoursWatched: 0,
   };
 
   componentDidMount() {
@@ -28,7 +36,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { seriesCount, fileCount, files } = this.props;
+    const { seriesCount, fileCount, files, collectionSize, watchedFiles, watchedSeries, hoursWatched } = this.props;
     return (
       <div className="page">
         <div className="page-content">
@@ -60,19 +68,19 @@ class Dashboard extends Component {
                               </tr>
                               <tr>
                                 <td>Collection Size</td>
-                                <td>0</td>
+                                <td>{collectionSize}</td>
                               </tr>
                               <tr>
                                 <td>Hours Watched</td>
-                                <td>0</td>
+                                <td>{hoursWatched}</td>
                               </tr>
                               <tr>
                                 <td>Episodes Watched</td>
-                                <td>0</td>
+                                <td>{watchedFiles}</td>
                               </tr>
                               <tr>
                                 <td>Series Completed</td>
-                                <td>0</td>
+                                <td>{watchedSeries}</td>
                               </tr>
                             </tbody>
                           </table>
@@ -131,8 +139,12 @@ function mapStateToProps(state) {
   })
 
   return {
-    fileCount: dashboard.file_count && dashboard.file_count.count,
-    seriesCount: dashboard.serie_count && dashboard.serie_count.count,
+    fileCount: dashboard.file_count,
+    seriesCount: dashboard.series_count,
+    collectionSize: dashboard.collection_size,
+    watchedFiles: dashboard.watched_files,
+    watchedSeries: dashboard.watched_series,
+    hoursWatched: dashboard.hours_watched,
     files,
   };
 }

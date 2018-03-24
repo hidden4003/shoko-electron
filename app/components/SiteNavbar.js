@@ -5,8 +5,10 @@ import { connect } from 'react-redux';
 import Events from '../events';
 import logoImage from '../images/logo.png';
 import closeWindowIcon from '../icons/16-Window-Close.png';
-import maximizeWindowIcon from '../icons/16-Window-Expand.png';
-import minimizeWindowIcon from '../icons/16-Window-Minimize.png';
+import { ReactComponent as SearchIcon } from '../icons/svg/search.svg';
+import { ReactComponent as MinimizeWindowIcon } from '../icons/svg/windowMinimize.svg';
+import { ReactComponent as MaximizeWindowIcon } from '../icons/svg/windowMaximize.svg';
+import { ReactComponent as CloseWindowIcon } from '../icons/svg/windowClose.svg';
 import RequestQueue from './RequestQueue';
 
 class SiteNavbar extends Component {
@@ -64,42 +66,6 @@ class SiteNavbar extends Component {
             id="site-navbar-collapse"
           >
             <ul className="nav navbar-toolbar">
-              <li className="nav-item hidden-float" id="toggleMenubar">
-                <a
-                  className="nav-link"
-                  data-toggle="menubar"
-                  href=""
-                  role="button"
-                >
-                  <i className="icon hamburger hamburger-arrow-left">
-                    <span className="sr-only">Toggle menubar</span>
-                    <span className="hamburger-bar" />
-                  </i>
-                </a>
-              </li>
-              <li className="nav-item hidden-sm-down" id="toggleFullscreen">
-                <a
-                  className="nav-link icon icon-fullscreen"
-                  data-toggle="fullscreen"
-                  href=""
-                  role="button"
-                >
-                  <span className="sr-only">Toggle fullscreen</span>
-                </a>
-              </li>
-              <li className="nav-item hidden-float">
-                <a
-                  className="nav-link icon wb-search"
-                  data-toggle="collapse"
-                  href=""
-                  data-target="#site-navbar-search"
-                  role="button"
-                >
-                  <span className="sr-only">Toggle Search</span>
-                </a>
-              </li>
-            </ul>
-            <ul className="nav navbar-toolbar navbar-right navbar-toolbar-right">
               <li className="nav-item">
                 <a
                   className="nav-link menu-icon"
@@ -114,32 +80,46 @@ class SiteNavbar extends Component {
               </li>
               <li className="nav-item">
                 <a
-                  className="nav-link"
+                  className="nav-link menu-icon"
+                  href=""
+                  onClick={e => {
+                    e.preventDefault();
+                  }}
+                  role="button"
+                >
+                  <SearchIcon />
+                </a>
+              </li>
+            </ul>
+            <ul className="nav navbar-toolbar navbar-right navbar-toolbar-right">
+              <li className="nav-item">
+                <a
+                  className="nav-link menu-icon"
                   role="button"
                   onClick={minimizeWindow}
                   href=""
                 >
-                  <img src={minimizeWindowIcon} alt="Close" />
+                  <MinimizeWindowIcon />
                 </a>
               </li>
               <li className="nav-item">
                 <a
-                  className="nav-link"
+                  className="nav-link menu-icon"
                   role="button"
                   onClick={maximizeWindow}
                   href=""
                 >
-                  <img src={maximizeWindowIcon} alt="Close" />
+                  <MaximizeWindowIcon />
                 </a>
               </li>
               <li className="nav-item">
                 <a
-                  className="nav-link"
+                  className="nav-link menu-icon"
                   role="button"
                   onClick={closeWindow}
                   href=""
                 >
-                  <img src={closeWindowIcon} alt="Close" />
+                  <CloseWindowIcon />
                 </a>
               </li>
             </ul>

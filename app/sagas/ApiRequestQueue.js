@@ -22,7 +22,12 @@ function* watchRequests() {
 export function* queueRequest(endpoint, data) {
   const requestId = uuid();
   yield put(
-    Actions.apiQueueAdd({ requestId, stamp: new Date(), status: 'Pending' })
+    Actions.apiQueueAdd({
+      requestId,
+      name: endpoint.name,
+      stamp: new Date(),
+      status: 'Pending'
+    })
   );
   yield put({ type: 'API_REQUEST', payload: { requestId, endpoint, data } });
   return requestId;
@@ -37,7 +42,7 @@ function* handleRequest(chan) {
 
     const { response } = yield race({
       response: call(endpoint, apiState, data),
-      timeout: call(delay, 1500)
+      timeout: call(delay, 5000)
     });
 
     // process the request

@@ -5743,10 +5743,8 @@ fieldset[disabled] .btn-pure.focus
 
     content: '';
 }
-.navbar-toolbar .nav-link
-{
-    line-height: 22px; 
-
+.navbar-toolbar .nav-link {
+    line-height: 1rem;
     padding-top: 1.5715rem;
     padding-bottom: 1.5715rem;
 }

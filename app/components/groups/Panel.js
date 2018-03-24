@@ -1,15 +1,14 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { forEach } from 'lodash';
 import { connect } from 'react-redux';
 
 class Panel extends PureComponent {
   static propTypes = {
-    title: PropTypes.string,
+    title: PropTypes.string
   };
 
   static defaultProps = {
-    title: '',
+    title: ''
   };
 
   render() {

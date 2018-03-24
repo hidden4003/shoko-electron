@@ -14,7 +14,7 @@ import starIcon from '../icons/16-My-Lists-Active.png';
 import SeriesImage from './SeriesImage';
 import SeriesInfo from './series/SeriesInfo';
 import SeriesEpisodes from './series/SeriesEpisodes';
-import RoutedTabpanel from './RoutedTabpanel';
+import RoutedTabpanel from './series/RoutedTabpanel';
 
 class Series extends Component {
   componentDidMount() {
@@ -30,7 +30,7 @@ class Series extends Component {
       { title: 'Images', route: '/images' },
       { title: 'Related & Similar', route: '/related' },
       { title: 'Reviews', route: '/reviews' },
-      { title: 'Files', route: '/files' },
+      { title: 'Files', route: '/files' }
     ];
   }
 
@@ -55,9 +55,16 @@ class Series extends Component {
             <img src={calendarIcon} alt="" />
             <span>{series.air}</span>
             <img src={collectionIcon} alt="" />
-            <span>{series.total_sizes && series.total_sizes.Episodes} Episodes {series.total_sizes && series.total_sizes.Specials && `(${series.total_sizes.Specials} Specials)`}</span>
+            <span>
+              {series.total_sizes && series.total_sizes.Episodes} Episodes{' '}
+              {series.total_sizes &&
+                series.total_sizes.Specials &&
+                `(${series.total_sizes.Specials} Specials)`}
+            </span>
             <img src={starIcon} alt="" />
-            <span>{series.rating} ({series.votes} votes)</span>
+            <span>
+              {series.rating} ({series.votes} votes)
+            </span>
           </div>
           <div className="poster">
             <SeriesImage poster first art={series.art} />
@@ -100,11 +107,18 @@ class Series extends Component {
               <li className="breadcrumb-item active">Fairy Tail</li>
               <li className="breadcrumb-item active">Fairy Tail (2014)</li>
             </ol>
-            <RoutedTabpanel route={match.url} config={Series.seriesTabpanel()} />
+            <RoutedTabpanel
+              route={match.url}
+              config={Series.seriesTabpanel()}
+            />
           </div>
           <div className="series-content">
             <Route path={match.url} exact component={SeriesInfo} />
-            <Route path={`${match.url}/episodes`} exact component={SeriesEpisodes} />
+            <Route
+              path={`${match.url}/episodes`}
+              exact
+              component={SeriesEpisodes}
+            />
           </div>
         </PerfectScrollbar>
       </div>
@@ -114,7 +128,9 @@ class Series extends Component {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getSeries: (id) => { dispatch({ type: Events.GET_SERIES, payload: id }); },
+    getSeries: id => {
+      dispatch({ type: Events.GET_SERIES, payload: id });
+    }
   };
 }
 
@@ -123,7 +139,7 @@ function mapStateToProps(state) {
 
   return {
     api,
-    series,
+    series
   };
 }
 

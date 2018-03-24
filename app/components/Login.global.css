@@ -82,6 +82,10 @@
 
 .page-login-v2 form > button {
   margin-top: 38px;
+  font-size: 1.5rem;
+}
+.page-login-v2 form > button:disabled {
+  opacity: 1;
 }
 
 .page-login-v2 form a {
@@ -99,6 +103,15 @@
 
 .page-login-v2 .social .icon, .page-login-v2 .social .icon:hover, .page-login-v2 .social .icon:active {
   color: #fff;
+}
+
+.page-login-v2 form .loader {
+  height: 1.5rem;
+  width: 1.5rem;
+  border-top:.125em solid rgba(202, 214, 222, 0.9);
+  border-right:.125em solid rgba(202, 214, 222, 0.9);
+  border-bottom:.125em solid rgba(202, 214, 222, 0.9);
+  border-left:.125em solid rgba(255, 255, 255, 0.9);
 }
 
 @media (min-width: 992px) {
