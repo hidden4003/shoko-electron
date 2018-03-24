@@ -1,7 +1,15 @@
 import { channel, delay } from 'redux-saga';
 import { take, fork, call, put, select, race } from 'redux-saga/effects';
-import { v1 as uuid } from 'uuid';
+import Base62 from 'base62';
 import Actions from '../actions/queue';
+
+let counter = 0;
+
+function reqId() {
+  counter += 1;
+  const id = Base62.encode(Date.now() + 1000 + counter);
+  return `api-request-${id}`;
+}
 
 function* watchRequests() {
   // create a channel to queue incoming requests
@@ -20,7 +28,7 @@ function* watchRequests() {
 }
 
 export function* queueRequest(endpoint, data) {
-  const requestId = uuid();
+  const requestId = reqId();
   yield put(
     Actions.apiQueueAdd({
       requestId,

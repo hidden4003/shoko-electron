@@ -111,9 +111,7 @@ class RequestQueue extends Component {
             </span>
           )}
         </DropdownToggle>
-        <DropdownMenu className="dropdown-menu-right dropdown-menu-media">
-          {items}
-        </DropdownMenu>
+        <DropdownMenu className="dropdown-menu-media">{items}</DropdownMenu>
       </Dropdown>
     );
   }
