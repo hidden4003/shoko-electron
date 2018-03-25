@@ -4,46 +4,49 @@ import orm from './orm';
 
 const ormSelector = state => state.orm;
 
-export const groupsSelector = createSelector(
-  orm,
-  ormSelector,
-  session => session.Group.all().toModelArray()
+export const groupsSelector = createSelector(orm, ormSelector, session =>
+  session.Group.all().toModelArray()
 );
 
-const seriesByGroupSelector = groupId => createSelector(
-  orm,
-  ormSelector,
-  session => session.Group.withId(groupId).series.toRefArray()
+const seriesByGroupSelector = groupId =>
+  createSelector(orm, ormSelector, session =>
+    session.Group.withId(groupId).series.toRefArray()
+  );
+
+const groupByIdSelector = groupId =>
+  createSelector(
+    orm,
+    ormSelector,
+    session => session.Group.withId(groupId).ref
+  );
+
+const groupFiltersSelector = createSelector(orm, ormSelector, session =>
+  session.GroupFilter.all()
+    .filter({ parent: 0 })
+    .toModelArray()
 );
 
-const groupByIdSelector = groupId => createSelector(
-  orm,
-  ormSelector,
-  session => session.Group.withId(groupId).ref
-);
+const getFilter = filterId =>
+  createSelector(
+    orm,
+    ormSelector,
+    session => session.GroupFilter.withId(filterId).ref
+  );
 
-const groupFiltersSelector = createSelector(
-  orm,
-  ormSelector,
-  session => session.GroupFilter.all().filter({ parent: 0 }).toModelArray()
-);
+const groupsByFilterSelector = filterId =>
+  createSelector(orm, ormSelector, session =>
+    session.GroupFilter.withId(filterId).groups.toRefArray()
+  );
 
-const getFilter = filterId => createSelector(
-  orm,
-  ormSelector,
-  session => session.GroupFilter.withId(filterId).ref
-);
+const filtersByParentSelector = parent =>
+  createSelector(orm, ormSelector, session =>
+    session.GroupFilter.filter({ parent })
+      .all()
+      .toRefArray()
+  );
 
-const groupsByFilterSelector = filterId => createSelector(
-  orm,
-  ormSelector,
-  session => session.GroupFilter.withId(filterId).groups.toRefArray()
-);
-
-const filtersByParentSelector = parent => createSelector(
-  orm,
-  ormSelector,
-  session => session.GroupFilter.filter({ parent }).all().toRefArray()
+const recentFiles = createSelector(orm, ormSelector, session =>
+  session.RecentFile.all().toModelArray()
 );
 
 export default {
@@ -54,5 +57,5 @@ export default {
   groupsByFilter: groupsByFilterSelector,
   filtersByParent: filtersByParentSelector,
   filterById: getFilter,
+  recentFiles
 };
-

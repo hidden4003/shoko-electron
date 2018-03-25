@@ -103,11 +103,16 @@ function getDashboard(apiState) {
   return jsonApiResponse(apiState, '/modules/stats', '');
 }
 
+function getFileRecent(apiState) {
+  return jsonApiResponse(apiState, '/file/recent', '');
+}
+
 export default {
   getGroups,
   getSeries,
   postLogin,
   getGroupFilters,
   getRandomImage,
-  getDashboard
+  getDashboard,
+  getFileRecent
 };

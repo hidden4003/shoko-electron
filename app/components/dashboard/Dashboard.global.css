@@ -1,0 +1,12 @@
+.dashboard-panel .panel-title {
+  display: inline-block;
+  padding: 7px 10px;
+}
+.dashboard-panel .panel-title:first-child {
+  border-radius: inherit;
+}
+
+.dashboard-panel .panel-title.active {
+  background: #fff;
+  color: #006cab;
+}

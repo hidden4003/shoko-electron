@@ -6,7 +6,7 @@ export class Group extends Model {
   static fields = {
     id: attr(), // non-relational field for any value; optional but highly recommended
     name: attr(),
-    series: many('Series'),
+    series: many('Series')
     // authors: many('Author', 'books'),
     // publisher: fk('Publisher', 'books'),
   };
@@ -22,7 +22,7 @@ export class Series extends Model {
 
   static fields = {
     id: attr(), // non-relational field for any value; optional but highly recommended
-    name: attr(),
+    name: attr()
   };
 
   toString() {
@@ -41,7 +41,7 @@ export class GroupFilter extends Model {
     type: attr(),
     url: attr(),
     parent: fk('GroupFilter'),
-    groups: many('Group'),
+    groups: many('Group')
   };
 
   toString() {
@@ -50,6 +50,21 @@ export class GroupFilter extends Model {
   // Declare any static or instance methods you need.
 }
 
-export default [
-  Group, Series, GroupFilter
-];
+export class RecentFile extends Model {
+  static modelName = 'RecentFile';
+
+  static fields = {
+    id: attr(), // non-relational field for any value; optional but highly recommended
+    name: attr(),
+    size: attr(),
+    type: attr(),
+    url: attr()
+  };
+
+  toString() {
+    return `RecentFile: ${this.name}`;
+  }
+  // Declare any static or instance methods you need.
+}
+
+export default [Group, Series, GroupFilter, RecentFile];

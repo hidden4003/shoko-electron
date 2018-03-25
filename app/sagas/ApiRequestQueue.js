@@ -1,5 +1,13 @@
-import { channel, delay } from 'redux-saga';
-import { take, fork, call, put, select, race } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
+import {
+  take,
+  fork,
+  call,
+  put,
+  select,
+  race,
+  actionChannel
+} from 'redux-saga/effects';
 import Base62 from 'base62';
 import Actions from '../actions/queue';
 
@@ -12,18 +20,10 @@ function reqId() {
 }
 
 function* watchRequests() {
-  // create a channel to queue incoming requests
-  const chan = yield call(channel);
   const workerThreads = 1;
 
-  // eslint-disable-next-line no-plusplus
-  for (let i = 0; i < workerThreads; i++) {
-    yield fork(handleRequest, chan);
-  }
-
-  while (true) {
-    const { payload } = yield take('API_REQUEST');
-    yield put(chan, payload);
+  for (let i = 0; i < workerThreads; i += 1) {
+    yield fork(handleRequest);
   }
 }
 
@@ -41,9 +41,11 @@ export function* queueRequest(endpoint, data) {
   return requestId;
 }
 
-function* handleRequest(chan) {
+function* handleRequest() {
+  const requestChannel = yield actionChannel('API_REQUEST');
   while (true) {
-    const { requestId, endpoint, data } = yield take(chan);
+    const { payload } = yield take(requestChannel);
+    const { requestId, endpoint, data } = payload;
 
     yield put(Actions.apiQueueUpdate({ requestId, status: 'Processing' }));
     const apiState = yield select(state => state.api);
