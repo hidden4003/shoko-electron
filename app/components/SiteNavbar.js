@@ -23,6 +23,7 @@ class SiteNavbar extends Component {
 
     return (
       <nav
+        id="window-drag-handle"
         className="site-navbar navbar navbar-default navbar-fixed-top navbar-mega"
         role="navigation"
       >

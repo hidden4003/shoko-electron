@@ -1,3 +1,11 @@
+#window-drag-handle {
+    -webkit-app-region: drag;
+}
+
+.site-navbar .nav-item {
+    -webkit-app-region: no-drag;
+}
+
 .site-navbar {
     background-color: #62a8ea;
 }
