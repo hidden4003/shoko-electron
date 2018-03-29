@@ -7,7 +7,14 @@ export default function ormReducer(dbState, action) {
 
   // Session-specific Models are available
   // as properties on the Session instance.
-  const { Group, Series, GroupFilter, RecentFile, RecentSeries } = session;
+  const {
+    Group,
+    Series,
+    GroupFilter,
+    RecentFile,
+    SeriesRecent,
+    SeriesCalendar
+  } = session;
 
   switch (action.type) {
     case Actions.FETCH_FULL_GROUP_LIST:
@@ -44,9 +51,14 @@ export default function ormReducer(dbState, action) {
         RecentFile.upsert(file);
       });
       break;
-    case Actions.LOAD_RECENT_SERIES:
+    case Actions.LOAD_SERIES_RECENT:
       forEach(action.payload, item => {
-        RecentSeries.upsert(item);
+        SeriesRecent.upsert(item);
+      });
+      break;
+    case Actions.LOAD_SERIES_CALENDAR:
+      forEach(action.payload.series, item => {
+        SeriesCalendar.upsert(item);
       });
       break;
     default:

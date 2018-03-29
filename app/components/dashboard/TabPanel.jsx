@@ -15,7 +15,7 @@ class TabPanel extends Component {
   static propTypes = {
     files: PropTypes.arrayOf(
       PropTypes.shape({
-        size: PropTypes.string,
+        size: PropTypes.number,
         id: PropTypes.string,
         filename: PropTypes.string,
         created: PropTypes.string,
@@ -79,7 +79,7 @@ class TabPanel extends Component {
         <tbody>
           {files &&
           files.map(file => (
-            <tr>
+            <tr key={file.id}>
               <td className="name"><div>{file.filename}</div></td>
               <td>{pretty(file.size)}</td>
               <td>{file.recognized === true ? <SuccessIcon className="dashboard-icon icon-green" /> : <WarningIcon className="dashboard-icon icon-yellow" />}</td>

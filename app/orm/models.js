@@ -70,8 +70,8 @@ export class RecentFile extends Model {
   // Declare any static or instance methods you need.
 }
 
-export class RecentSeries extends Model {
-  static modelName = 'RecentSeries';
+export class SeriesRecent extends Model {
+  static modelName = 'SeriesRecent';
 
   static fields = {
     id: attr(), // non-relational field for any value; optional but highly recommended
@@ -84,4 +84,26 @@ export class RecentSeries extends Model {
   // Declare any static or instance methods you need.
 }
 
-export default [Group, Series, GroupFilter, RecentFile, RecentSeries];
+export class SeriesCalendar extends Model {
+  static modelName = 'SeriesCalendar';
+
+  static fields = {
+    aid: attr(),
+    air: attr(),
+    name: attr()
+  };
+
+  toString() {
+    return `Calendar: ${this.name}`;
+  }
+  // Declare any static or instance methods you need.
+}
+
+export default [
+  Group,
+  Series,
+  GroupFilter,
+  RecentFile,
+  SeriesRecent,
+  SeriesCalendar
+];

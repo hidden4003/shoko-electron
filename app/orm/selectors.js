@@ -58,7 +58,11 @@ const recentFiles = createSelector(orm, ormSelector, session => {
 });
 
 const recentSeries = createSelector(orm, ormSelector, session => {
-  return session.RecentSeries.all().toModelArray();
+  return session.SeriesRecent.all().toModelArray();
+});
+
+const seriesCalendar = createSelector(orm, ormSelector, session => {
+  return session.SeriesCalendar.all().toModelArray();
 });
 
 export default {
@@ -70,5 +74,6 @@ export default {
   filtersByParent: filtersByParentSelector,
   filterById: getFilter,
   recentFiles,
-  recentSeries
+  recentSeries,
+  seriesCalendar
 };

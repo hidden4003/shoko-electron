@@ -111,6 +111,10 @@ function getSeriesRecent(apiState) {
   return jsonApiResponse(apiState, '/serie/recent', '?limit=10');
 }
 
+function getSeriesCalendar(apiState) {
+  return jsonApiResponse(apiState, '/serie/calendar', '?limit=10');
+}
+
 export default {
   getGroups,
   getSeries,
@@ -119,5 +123,6 @@ export default {
   getRandomImage,
   getDashboard,
   getFileRecent,
-  getSeriesRecent
+  getSeriesRecent,
+  getSeriesCalendar
 };

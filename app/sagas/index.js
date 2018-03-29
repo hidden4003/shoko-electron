@@ -125,11 +125,10 @@ function* windowMinimize() {
 
 function* getDashboard() {
   const reqId = yield queueRequest(Api.getDashboard);
-
   const result = yield take(`API_RESPONSE_${reqId}`);
   const resultJson = result.payload;
   if (resultJson.error) {
-    alert(resultJson.message);
+    yield queueNotification({ type: 'error', message: resultJson.message });
   } else {
     yield put(dashboardActions.getDashboard(resultJson.data));
   }
@@ -159,7 +158,18 @@ function* getSeriesRecent() {
   if (resultJson.error) {
     yield queueNotification({ type: 'error', message: resultJson.message });
   } else {
-    yield put(orm.loadRecentSeries(resultJson.data));
+    yield put(orm.loadSeriesRecent(resultJson.data));
+  }
+}
+
+function* getSeriesCalendar() {
+  const reqId = yield queueRequest(Api.getSeriesCalendar);
+  const result = yield take(`API_RESPONSE_${reqId}`);
+  const resultJson = result.payload;
+  if (resultJson.error) {
+    yield queueNotification({ type: 'error', message: resultJson.message });
+  } else {
+    yield put(orm.loadSeriesCalendar(resultJson.data));
   }
 }
 
@@ -178,6 +188,7 @@ export default function* rootSaga() {
     takeEvery(Events.GET_FILE_RECENT, getFileRecent),
     takeEvery(Events.OPEN_EXTERNAL, openExternal),
     takeEvery(Events.GET_SERIES_RECENT, getSeriesRecent),
+    takeEvery(Events.GET_SERIES_CALENDAR, getSeriesCalendar),
     fork(watchRequests),
     fork(notificationsWatcher)
   ]);
