@@ -107,6 +107,10 @@ function getFileRecent(apiState) {
   return jsonApiResponse(apiState, '/file/recent', '?limit=10&level=-1');
 }
 
+function getSeriesRecent(apiState) {
+  return jsonApiResponse(apiState, '/serie/recent', '?limit=10');
+}
+
 export default {
   getGroups,
   getSeries,
@@ -114,5 +118,6 @@ export default {
   getGroupFilters,
   getRandomImage,
   getDashboard,
-  getFileRecent
+  getFileRecent,
+  getSeriesRecent
 };

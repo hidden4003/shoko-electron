@@ -1,12 +1,11 @@
 // @flow
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
-import { forEach } from 'lodash';
-import pretty from 'prettysize';
 import PropTypes from 'prop-types';
 import './Dashboard.global.css';
 import Events from '../../events';
-import TabPanel from './TabPanel.jsx';
+import TabPanel from './TabPanel';
+import  NotificationsQueue from '../NotificationsQueue';
 
 class Dashboard extends Component {
   static propTypes = {
@@ -16,10 +15,6 @@ class Dashboard extends Component {
     watchedFiles: PropTypes.number,
     watchedSeries: PropTypes.number,
     hoursWatched: PropTypes.number,
-    files: PropTypes.arrayOf(PropTypes.shape({
-      name: PropTypes.string,
-      size: PropTypes.string,
-    })),
     getDashboard: PropTypes.func.isRequired,
   };
 
@@ -37,7 +32,7 @@ class Dashboard extends Component {
   }
 
   render() {
-    const { seriesCount, fileCount, files, collectionSize, watchedFiles, watchedSeries, hoursWatched } = this.props;
+    const { seriesCount, fileCount, collectionSize, watchedFiles, watchedSeries, hoursWatched } = this.props;
     return (
       <div className="page">
         <div className="page-content">
@@ -89,6 +84,7 @@ class Dashboard extends Component {
             </div>
           </div>
         </div>
+        <NotificationsQueue />
       </div>
     );
   }
@@ -97,17 +93,6 @@ class Dashboard extends Component {
 function mapStateToProps(state) {
   const { dashboard } = state;
 
-  const files = [];
-
-  forEach(dashboard.file, (file) => {
-    files.push({
-      name: file.filename,
-      size: pretty(file.size, {one: true, places: 2}),
-      recognized: file.recognized === true,
-      updated: file.updated || '',
-    });
-  })
-
   return {
     fileCount: dashboard.file_count,
     seriesCount: dashboard.series_count,
@@ -115,7 +100,6 @@ function mapStateToProps(state) {
     watchedFiles: dashboard.watched_files,
     watchedSeries: dashboard.watched_series,
     hoursWatched: dashboard.hours_watched,
-    files,
   };
 }
 

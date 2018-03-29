@@ -7,7 +7,7 @@ export default function ormReducer(dbState, action) {
 
   // Session-specific Models are available
   // as properties on the Session instance.
-  const { Group, Series, GroupFilter, RecentFile } = session;
+  const { Group, Series, GroupFilter, RecentFile, RecentSeries } = session;
 
   switch (action.type) {
     case Actions.FETCH_FULL_GROUP_LIST:
@@ -42,6 +42,11 @@ export default function ormReducer(dbState, action) {
     case Actions.LOAD_RECENT_FILES:
       forEach(action.payload, file => {
         RecentFile.upsert(file);
+      });
+      break;
+    case Actions.LOAD_RECENT_SERIES:
+      forEach(action.payload, item => {
+        RecentSeries.upsert(item);
       });
       break;
     default:

@@ -152,6 +152,17 @@ function* openExternal(action) {
   yield null;
 }
 
+function* getSeriesRecent() {
+  const reqId = yield queueRequest(Api.getSeriesRecent);
+  const result = yield take(`API_RESPONSE_${reqId}`);
+  const resultJson = result.payload;
+  if (resultJson.error) {
+    yield queueNotification({ type: 'error', message: resultJson.message });
+  } else {
+    yield put(orm.loadRecentSeries(resultJson.data));
+  }
+}
+
 export default function* rootSaga() {
   yield all([
     takeEvery(Events.GET_GROUPS, getGroups),
@@ -166,6 +177,7 @@ export default function* rootSaga() {
     takeEvery(Events.GET_DASHBOARD, getDashboard),
     takeEvery(Events.GET_FILE_RECENT, getFileRecent),
     takeEvery(Events.OPEN_EXTERNAL, openExternal),
+    takeEvery(Events.GET_SERIES_RECENT, getSeriesRecent),
     fork(watchRequests),
     fork(notificationsWatcher)
   ]);

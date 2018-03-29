@@ -70,4 +70,18 @@ export class RecentFile extends Model {
   // Declare any static or instance methods you need.
 }
 
-export default [Group, Series, GroupFilter, RecentFile];
+export class RecentSeries extends Model {
+  static modelName = 'RecentSeries';
+
+  static fields = {
+    id: attr(), // non-relational field for any value; optional but highly recommended
+    name: attr()
+  };
+
+  toString() {
+    return `RecentSeries: ${this.name}`;
+  }
+  // Declare any static or instance methods you need.
+}
+
+export default [Group, Series, GroupFilter, RecentFile, RecentSeries];
