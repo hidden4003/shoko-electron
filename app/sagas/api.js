@@ -104,7 +104,7 @@ function getDashboard(apiState) {
 }
 
 function getFileRecent(apiState) {
-  return jsonApiResponse(apiState, '/file/recent', '');
+  return jsonApiResponse(apiState, '/file/recent', '?limit=10&level=-1');
 }
 
 export default {

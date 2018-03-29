@@ -55,8 +55,11 @@ export class RecentFile extends Model {
 
   static fields = {
     id: attr(), // non-relational field for any value; optional but highly recommended
-    name: attr(),
+    filename: attr(),
+    created: attr(),
+    updated: attr(),
     size: attr(),
+    recognized: attr(),
     type: attr(),
     url: attr()
   };

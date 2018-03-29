@@ -146,6 +146,12 @@ function* getFileRecent() {
   }
 }
 
+function* openExternal(action) {
+  const { payload } = action;
+  require('electron').shell.openExternal(payload);
+  yield null;
+}
+
 export default function* rootSaga() {
   yield all([
     takeEvery(Events.GET_GROUPS, getGroups),
@@ -159,6 +165,7 @@ export default function* rootSaga() {
     takeEvery(Events.WINDOW_MINIMIZE, windowMinimize),
     takeEvery(Events.GET_DASHBOARD, getDashboard),
     takeEvery(Events.GET_FILE_RECENT, getFileRecent),
+    takeEvery(Events.OPEN_EXTERNAL, openExternal),
     fork(watchRequests),
     fork(notificationsWatcher)
   ]);

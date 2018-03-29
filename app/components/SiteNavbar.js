@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Events from '../events';
 import logoImage from '../images/logo.png';
-import closeWindowIcon from '../icons/16-Window-Close.png';
 import { ReactComponent as SearchIcon } from '../icons/svg/search.svg';
 import { ReactComponent as MinimizeWindowIcon } from '../icons/svg/windowMinimize.svg';
 import { ReactComponent as MaximizeWindowIcon } from '../icons/svg/windowMaximize.svg';

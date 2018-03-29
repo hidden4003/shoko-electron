@@ -1,5 +1,6 @@
 // selectors.js
 import { createSelector } from 'redux-orm';
+import { merge } from 'lodash';
 import orm from './orm';
 
 const ormSelector = state => state.orm;
@@ -45,9 +46,17 @@ const filtersByParentSelector = parent =>
       .toRefArray()
   );
 
-const recentFiles = createSelector(orm, ormSelector, session =>
-  session.RecentFile.all().toModelArray()
-);
+const recentFiles = createSelector(orm, ormSelector, session => {
+  const files = session.RecentFile.all().toModelArray();
+
+  files.sort((a, b) => {
+    if (a.time === b.time) {
+      return 0;
+    }
+    return a.time > b.time ? 1 : -1;
+  });
+  return files;
+});
 
 export default {
   allGroups: groupsSelector,
