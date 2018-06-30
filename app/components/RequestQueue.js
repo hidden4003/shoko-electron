@@ -124,5 +124,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(RequestQueue);
-
-<div style="width: 500px; margin: 16px auto;" />;

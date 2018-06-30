@@ -1,3 +1,5 @@
+/* eslint global-require: 0, import/no-dynamic-require: 0 */
+
 /**
  * Builds the DLL for development electron renderer process
  */
@@ -8,7 +10,6 @@ import merge from 'webpack-merge';
 import baseConfig from './webpack.config.base';
 import { dependencies } from './package.json';
 import CheckNodeEnv from './internals/scripts/CheckNodeEnv';
-import module from './webpack.config.renderer.dev.module';
 
 CheckNodeEnv('development');
 
@@ -28,13 +29,11 @@ export default merge.smart(baseConfig, {
   /**
    * Use `module` from `webpack.config.renderer.dev.js`
    */
-  module,
+  module: require('./webpack.config.renderer.dev').module,
 
   entry: {
-    renderer: (
-      Object
-        .keys(dependencies || {})
-        .filter(dependency => dependency !== 'font-awesome')
+    renderer: Object.keys(dependencies || {}).filter(
+      dependency => dependency !== 'font-awesome'
     )
   },
 
@@ -48,7 +47,7 @@ export default merge.smart(baseConfig, {
   plugins: [
     new webpack.DllPlugin({
       path: path.join(dist, '[name].json'),
-      name: '[name]',
+      name: '[name]'
     }),
 
     /**
@@ -69,9 +68,9 @@ export default merge.smart(baseConfig, {
       options: {
         context: path.resolve(process.cwd(), 'app'),
         output: {
-          path: path.resolve(process.cwd(), 'dll'),
-        },
-      },
+          path: path.resolve(process.cwd(), 'dll')
+        }
+      }
     })
-  ],
+  ]
 });
