@@ -32,7 +32,7 @@
     "test-e2e": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings -r babel-register ./internals/scripts/RunTests.js e2e",
     "test-watch": "npm test -- --watch"
   },
-  "browserslist": "electron 1.6",
+  "browserslist": "electron 2.0",
   "lint-staged": {
     "*.js": [
       "cross-env NODE_ENV=development eslint --cache --format=node_modules/eslint-formatter-pretty",
@@ -207,12 +207,13 @@
     "react-dom": "^16.4.1",
     "react-hot-loader": "^4.3.3",
     "react-lazyload": "^2.3.0",
-    "react-perfect-scrollbar": "^0.2.3",
+    "react-perfect-scrollbar": "^1.1.1",
     "react-redux": "^5.0.7",
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-router-redux": "^5.0.0-alpha.6",
     "react-tooltip": "^3.4.0",
+    "react-virtualized": "^9.20.0",
     "reactstrap": "^5.0.0-beta",
     "redux": "^4.0.0",
     "redux-actions": "^2.2.1",

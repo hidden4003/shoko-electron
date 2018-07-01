@@ -16,7 +16,7 @@ class TabPanel extends Component {
     files: PropTypes.arrayOf(
       PropTypes.shape({
         size: PropTypes.number,
-        id: PropTypes.string,
+        id: PropTypes.number,
         filename: PropTypes.string,
         created: PropTypes.string,
         updated: PropTypes.string,

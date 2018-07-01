@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import LazyLoad from 'react-lazyload';
 import Tooltip from 'react-tooltip';
 import { forEach } from 'lodash';
 import { connect } from 'react-redux';
@@ -25,10 +24,12 @@ class Group extends PureComponent {
     const { group, openSeries, isGroup, openGroup } = this.props;
     const groupId = `group${group.id}`;
 
-    let unwatched = 0;
+    let unwatched;
     try {
       unwatched = group.local_sizes.Episodes - group.watched_sizes.Episodes;
-    } catch (e) {}
+    } catch (e) {
+      unwatched = 0;
+    }
 
     const tags = [];
     forEach(group.tags, tag => {
@@ -47,12 +48,14 @@ class Group extends PureComponent {
         data-for={groupId}
         data-delay-show="500"
         onClick={() => {
-          isGroup ? openGroup(group.id) : openSeries(group.id);
+          if (isGroup) {
+            openGroup(group.id);
+          } else {
+            openSeries(group.id);
+          }
         }}
       >
-        <LazyLoad once overflow height={250}>
-          <SeriesImage poster first art={group.art} />
-        </LazyLoad>
+        <SeriesImage poster first art={group.art} />
         {unwatched > 0 && <div className="unwatched">{unwatched}</div>}
         <div className="title">
           <div>
@@ -99,8 +102,11 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {};
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Group);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Group);

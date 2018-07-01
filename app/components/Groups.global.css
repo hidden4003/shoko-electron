@@ -6,12 +6,6 @@ body {
     height: calc(100% - 60px);
     min-height: calc(100% - 60px);
     position: relative;
-}
-
-.page-groups .groups-container {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
     padding: 10px 12px;
 }
 
@@ -19,6 +13,7 @@ body {
     margin: 1rem 1rem 0 1rem;
     background: #fff;
     box-shadow: 0 0 2px 0 rgba(199,199,199,1);
+    height: 100%;
 }
 
 .group-panel .header {
@@ -85,15 +80,20 @@ body {
     display: block;
 }
 
+.group-panel .groups-container {
+    height: 100%;
+}
+
 .group {
-    height: 250px;
-    width: 200px;
+    height: 244px;
+    width: 194px;
     position: relative;
     margin: 3px 4px;
     background: #fff;
     border: 1px #565656 solid;
     border-radius: 2px;
     box-shadow: 0 0 2px 0 rgba(199,199,199,1);
+    display: inline-block;
 }
 
 .group .title {

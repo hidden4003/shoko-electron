@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import { Collection, AutoSizer } from 'react-virtualized';
 import { connect } from 'react-redux';
-import { forceCheck } from 'react-lazyload';
 
 import './Groups.global.css';
 import SiteMenuBar from './SiteMenuBar';
@@ -21,6 +20,28 @@ class SeriesList extends Component {
     getSeries();
   }
 
+  cellRenderer = ({index, key, style}) => {
+    const group = this.props.groups[index];
+    if (group === undefined) { return undefined; }
+    return <div key={key} style={style}><Group key={group.id} group={group} /></div>
+  }
+
+  cellSizeAndPositionGetter = ({index}) => {
+    const cellWidth = 200;
+    const cellPerRow = 6;
+    const cellHeight = 250;
+
+    const rowWidth = cellWidth*cellPerRow;
+    const row = Math.floor(index*cellWidth/rowWidth);
+
+    return {
+      height: cellHeight,
+      width: cellWidth,
+      x: ((index+1)%6)*cellWidth,
+      y: row*cellHeight
+    }
+  }
+
   render() {
     const { groups } = this.props;
 
@@ -29,11 +50,21 @@ class SeriesList extends Component {
         <SiteNavbar />
         <SiteMenuBar />
         <div className="page page-groups">
-          <PerfectScrollbar onScrollY={forceCheck}>
-            <div className="groups-container">
-              {groups.map((group) => (<Group group={group} />))}
-            </div>
-          </PerfectScrollbar>
+          <div className="groups-container">
+            <AutoSizer>
+              {({width, height}) => (
+                <Collection
+                  cellCount={groups.length}
+                  cellRenderer={this.cellRenderer}
+                  cellSizeAndPositionGetter={this.cellSizeAndPositionGetter}
+                  height={height}
+                  horizontalOverscanSize={0}
+                  verticalOverscanSize={0}
+                  width={width}
+                />
+              )}
+            </AutoSizer>
+          </div>
         </div>
       </div>
     );

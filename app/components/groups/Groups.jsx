@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import PerfectScrollbar from 'react-perfect-scrollbar';
+import { Collection, AutoSizer } from 'react-virtualized';
 import { connect } from 'react-redux';
-import { forceCheck } from 'react-lazyload';
 
 import selectors from '../../orm/selectors';
 import '../Groups.global.css';
@@ -29,19 +28,52 @@ class Groups extends Component {
     if (groups.length === 0) getGroups();
   }
 
-  render() {
-    const { groups, isGroup, filter, filterId } = this.props;
+  cellRenderer = ({index, key, style}) => {
+    const group = this.props.groups[index];
+    if (group === undefined) { return undefined; }
+    return <div key={key} style={style}><Group isGroup={this.props.isGroup} key={group.id} group={group} /></div>
+  }
 
+  cellSizeAndPositionGetter = ({index}) => {
+    const cellWidth = 200;
+    const cellPerRow = 6;
+    const cellHeight = 250;
+
+    const rowWidth = cellWidth*cellPerRow;
+    const row = Math.floor(index*cellWidth/rowWidth);
+
+    return {
+      height: cellHeight,
+      width: cellWidth,
+      x: ((index)%6)*cellWidth,
+      y: row*cellHeight
+    }
+  }
+
+  render() {
+    const { groups, filter, filterId } = this.props;
+
+    console.log(filterId, groups);
     return (
       <div className="page page-groups">
         <Filters filter={filterId} />
-        <PerfectScrollbar onScrollY={forceCheck}>
-          <Panel title={filter}>
-            <div className="groups-container">
-              {groups.map((group) => (<Group isGroup={isGroup} key={group.id} group={group} />))}
-            </div>
-          </Panel>
-        </PerfectScrollbar>
+        <Panel title={filter}>
+          <div className="groups-container">
+            <AutoSizer>
+              {({width, height}) => (
+                <Collection
+                  cellCount={groups.length}
+                  cellRenderer={this.cellRenderer}
+                  cellSizeAndPositionGetter={this.cellSizeAndPositionGetter}
+                  height={height}
+                  horizontalOverscanSize={0}
+                  verticalOverscanSize={0}
+                  width={width}
+                />
+              )}
+            </AutoSizer>
+          </div>
+        </Panel>
       </div>
     );
   }
@@ -74,7 +106,6 @@ function mapStateToProps(state, ownProps) {
   let filteredGroups;
   let filter;
   if (filterId) {
-    console.log('selectors.filterById', selectors.filterById(filterId)(state)/*.groups*/);
     filter = selectors.filterById(filterId)(state);
     filteredGroups = selectors.groupsByFilter(filterId)(state);
     if (filteredGroups.length === 0) { filteredGroups = undefined; }
