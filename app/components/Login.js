@@ -17,6 +17,17 @@ class Login extends Component {
     api: PropTypes.object.isRequired
   };
 
+  static defaultProps = {
+    image: ''
+  };
+
+  constructor() {
+    super();
+    this.state = {
+      version: window.require('electron').remote.app.getVersion()
+    };
+  }
+
   componentDidMount() {
     this.props.loginImage();
   }
@@ -37,15 +48,12 @@ class Login extends Component {
         <div className="page-login-main animation-slide-right animation-duration-1">
           <div className="app-info">
             <div className="font-size-24">SHOKO DESKTOP</div>
-            Version 4.0.0.1
+            Version {this.state.version}
           </div>
           <h3 className="font-size-24">Welcome back</h3>
           <p>Please enter your login details below.</p>
           <form method="post" action="">
             <div className="form-group">
-              <label className="sr-only" htmlFor="inputEmail">
-                Username
-              </label>
               <input
                 type="text"
                 className="form-control"
@@ -58,9 +66,6 @@ class Login extends Component {
               />
             </div>
             <div className="form-group">
-              <label className="sr-only" htmlFor="inputPassword">
-                Password
-              </label>
               <input
                 type="password"
                 className="form-control"
@@ -73,9 +78,6 @@ class Login extends Component {
               />
             </div>
             <div className="form-group">
-              <label className="sr-only" htmlFor="inputEmail">
-                Server
-              </label>
               <input
                 type="text"
                 className="form-control"
@@ -148,4 +150,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Login);

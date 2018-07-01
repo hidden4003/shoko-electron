@@ -2,7 +2,7 @@
   "name": "shoko-electron",
   "author": { "name": "Shoko", "email": "hidden4003@users.noreply.github.com" },
   "productName": "shoko-electron",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "Shoko Electron",
   "main": "./main.prod.js",
   "scripts": {
