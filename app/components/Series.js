@@ -17,11 +17,6 @@ import SeriesEpisodes from './series/SeriesEpisodes';
 import RoutedTabpanel from './series/RoutedTabpanel';
 
 class Series extends Component {
-  componentDidMount() {
-    const { match, getSeries } = this.props;
-    getSeries(match.params.id);
-  }
-
   static seriesTabpanel() {
     return [
       { title: 'Series info', route: '' },
@@ -34,10 +29,24 @@ class Series extends Component {
     ];
   }
 
+  componentDidMount() {
+    const { match, getSeries } = this.props;
+    getSeries(match.params.id);
+  }
+
   render() {
     const { series, match } = this.props;
     const tags = [];
-    forEach(series.tags, function(tag) {
+    const episodes = {
+      totalEpisodes: series.total_sizes && series.total_sizes.Episodes || 0,
+      totalSpecials: series.total_sizes && series.total_sizes.Specials || 0,
+      localEpisodes: series.total_sizes && series.local_sizes.Episodes || 0,
+      localSpecials: series.total_sizes && series.local_sizes.Specials || 0,
+      watchedEpisodes: series.watched_sizes && series.watched_sizes.Episodes || 0,
+      watchedSpecials: series.watched_sizes && series.watched_sizes.Specials || 0,
+    }
+
+    forEach(series.tags, (tag) => {
       tags.push(<div className="badge badge-info">{tag}</div>);
     });
 
@@ -56,7 +65,7 @@ class Series extends Component {
             <span>{series.air}</span>
             <img src={collectionIcon} alt="" />
             <span>
-              {series.total_sizes && series.total_sizes.Episodes} Episodes{' '}
+              {episodes.totalEpisodes} Episodes{' '}
               {series.total_sizes &&
                 series.total_sizes.Specials &&
                 `(${series.total_sizes.Specials} Specials)`}
@@ -80,17 +89,19 @@ class Series extends Component {
             <p className="section">
               <i className="icon icon-watch" />watch count
             </p>
-            <p>00 / 000 Episodes</p>
-            <p>00 / 000 Specials</p>
+            <p>{episodes.watchedEpisodes} / {episodes.totalEpisodes} Episodes</p>
+            <p>{episodes.watchedSpecials} / {episodes.totalSpecials} Specials</p>
             <p className="section">
               <i className="icon icon-file" />file count
             </p>
-            <p>00 Missing (Collecting)</p>
-            <p>00 Missing (Total)</p>
+            <p>0 Missing (Collecting)</p>
+            <p>{(episodes.totalEpisodes + episodes.totalSpecials)
+              - (episodes.localEpisodes + episodes.localSpecials) || 0} Missing (Total)
+            </p>
             <p className="section">
               <i className="icon icon-rating" />user rating
             </p>
-            <p>N/A (No rating)</p>
+            <p>{series.userrating || "N/A (No rating)"}</p>
             <p className="section">
               <i className="icon icon-user" />user activity
             </p>
