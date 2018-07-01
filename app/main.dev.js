@@ -86,6 +86,8 @@ app.on('ready', async () => {
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
+});
 
+app.on('ready', () => {
   autoUpdater.checkForUpdatesAndNotify();
 });
